@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aenjo — Creative Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ec;
+    --accent: #ff3c1f;
+    --accent2: #c8ff3e;
+    --gray: #1c1c1c;
+    --muted: #555;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 40px; height: 40px;
+    border: 1px solid rgba(245,242,236,0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+  }
+  body:has(a:hover) .cursor, body:has(button:hover) .cursor { width: 20px; height: 20px; background: var(--accent2); }
+  body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width: 60px; height: 60px; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    mix-blend-mode: difference;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* Lang toggle */
+  .lang-toggle {
+    display: flex; gap: 4px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .lang-toggle button {
+    background: none; border: none; cursor: none;
+    color: var(--white);
+    opacity: 0.4;
+    font-family: var(--font-body);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    padding: 2px 6px;
+    transition: opacity 0.2s;
+  }
+  .lang-toggle button.active { opacity: 1; border-bottom: 1px solid var(--accent); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(255,60,31,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,255,62,0.07) 0%, transparent 70%);
+  }
+  .hero-noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.4; pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(72px, 12vw, 160px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-title .outline {
+    -webkit-text-stroke: 1.5px var(--white);
+    color: transparent;
+  }
+  .hero-title .accent-word { color: var(--accent); }
+  .hero-sub {
+    margin-top: 40px;
+    display: flex; gap: 48px; align-items: flex-end;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.7s;
+  }
+  .hero-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.65);
+    max-width: 340px;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--accent2);
+    padding: 14px 28px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .hero-cta:hover { transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--accent); }
+  .hero-cta svg { transition: transform 0.2s; }
+  .hero-cta:hover svg { transform: translateX(4px); }
+
+  .scroll-indicator {
+    position: absolute; bottom: 32px; right: 48px;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(245,242,236,0.3);
+    writing-mode: vertical-rl;
+    display: flex; align-items: center; gap: 12px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.2s;
+  }
+  .scroll-indicator::before {
+    content: '';
+    display: block; width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, rgba(245,242,236,0.3));
+  }
+
+  /* Services */
+  .services {
+    padding: 120px 48px;
+    border-top: 1px solid rgba(245,242,236,0.08);
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 60px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1; max-width: 80px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-item {
+    padding: 48px 40px;
+    background: var(--gray);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .service-item::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-item:hover { background: #222; }
+  .service-item:hover::before { transform: scaleX(1); }
+  .service-num {
+    font-family: var(--font-display);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 24px;
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .service-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.5);
+    line-height: 1.7;
+  }
+  .service-tags {
+    margin-top: 24px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .tag {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.4);
+    border: 1px solid rgba(245,242,236,0.12);
+    padding: 4px 10px;
+  }
+
+  /* Work */
+  .work {
+    padding: 120px 48px;
+    border-top: 1px solid rgba(245,242,236,0.08);
+  }
+  .work-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .work-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  .work-item {
+    position: relative;
+    aspect-ratio: 16/10;
+    background: var(--gray);
+    overflow: hidden;
+    cursor: none;
+  }
+  .work-item-inner {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 60%);
+    transition: transform 0.4s ease;
+  }
+  .work-item:hover .work-item-inner { transform: translateY(-4px); }
+  .work-placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .work-placeholder-icon {
+    width: 60px; height: 60px;
+    border: 1px solid rgba(245,242,236,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0.3;
+  }
+  .work-cat {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .work-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .work-link-overlay {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,60,31,0.08);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .work-item:hover .work-link-overlay { opacity: 1; }
+
+  .work-note {
+    margin-top: 24px;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.35);
+    font-style: italic;
+  }
+
+  /* About */
+  .about {
+    padding: 120px 48px;
+    border-top: 1px solid rgba(245,242,236,0.08);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 32px;
+  }
+  .about-title .line2 {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+  }
+  .about-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(245,242,236,0.65);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+  .about-stats {
+    display: flex; gap: 48px; margin-top: 48px;
+  }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,0.4);
+    margin-top: 4px;
+  }
+  .about-visual {
+    position: relative;
+    aspect-ratio: 4/5;
+    background: var(--gray);
+    overflow: hidden;
+  }
+  .about-visual-inner {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(255,60,31,0.15) 0%, transparent 70%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-monogram {
+    font-family: var(--font-display);
+    font-size: 160px;
+    font-weight: 800;
+    color: rgba(245,242,236,0.04);
+    letter-spacing: -0.06em;
+    user-select: none;
+  }
+  .about-badge {
+    position: absolute; bottom: 32px; right: 32px;
+    background: var(--accent);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+  }
+
+  /* Contact */
+  .contact {
+    padding: 120px 48px;
+    border-top: 1px solid rgba(245,242,236,0.08);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,60,31,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .contact-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 110px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin-bottom: 48px;
+    position: relative;
+  }
+  .contact-title .outline {
+    -webkit-text-stroke: 1.5px rgba(245,242,236,0.3);
+    color: transparent;
+    display: block;
+  }
+  .contact-links {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    margin-top: 48px; position: relative;
+  }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    padding: 16px 32px;
+    border: 1px solid rgba(245,242,236,0.2);
+    transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent2); color: var(--black); background: var(--accent2); transform: translate(-2px,-2px); }
+  .contact-link.primary { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .contact-link.primary:hover { background: var(--accent2); border-color: var(--accent2); color: var(--black); }
+
+  /* Footer */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid rgba(245,242,236,0.06);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px;
+    color: rgba(245,242,236,0.25);
+    letter-spacing: 0.04em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 24px 60px; }
+    .services, .work, .about, .contact { padding: 80px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .work-grid { grid-template-columns: 1fr; }
+    .about { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { aspect-ratio: 16/9; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Aenjo</a>
+  <div class="nav-links">
+    <a href="#work" data-en="Work" data-fr="Travaux">Work</a>
+    <a href="#services" data-en="Services" data-fr="Services">Services</a>
+    <a href="#about" data-en="About" data-fr="À propos">About</a>
+    <a href="#contact" data-en="Contact" data-fr="Contact">Contact</a>
+  </div>
+  <div class="lang-toggle">
+    <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+    <span style="opacity:0.2">/</span>
+    <button id="btn-fr" onclick="setLang('fr')">FR</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-tag" data-en="Creative Studio — Video · Motion · Design" data-fr="Studio Créatif — Vidéo · Motion · Design">
+    Creative Studio — Video · Motion · Design
+  </div>
+  <h1 class="hero-title">
+    <span class="outline">Make it</span><br>
+    <span class="accent-word">move.</span>
+  </h1>
+  <div class="hero-sub">
+    <p class="hero-desc" data-en="Video editing, motion graphics & visual design that make your brand impossible to ignore." data-fr="Montage vidéo, motion graphics et design visuel qui rendent votre marque impossible à ignorer.">
+      Video editing, motion graphics & visual design that make your brand impossible to ignore.
+    </p>
+    <a href="#contact" class="hero-cta">
+      <span data-en="Start a project" data-fr="Démarrer un projet">Start a project</span>
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="scroll-indicator" data-en="Scroll" data-fr="Défiler">Scroll</div>
+</section>
+
+<!-- Services -->
+<section class="services" id="services">
+  <div class="section-label" data-en="What I do" data-fr="Ce que je fais">What I do</div>
+  <div class="services-grid">
+    <div class="service-item reveal">
+      <div class="service-num">01</div>
+      <h3 class="service-title" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</h3>
+      <p class="service-desc" data-en="Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching." data-fr="Reels, contenus YouTube, clips podcasts, vidéos événementielles. Des montages qui retiennent l'attention.">
+        Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching.
+      </p>
+      <div class="service-tags">
+        <span class="tag">Premiere Pro</span>
+        <span class="tag">CapCut</span>
+        <span class="tag">Filmora</span>
+      </div>
+    </div>
+    <div class="service-item reveal" style="transition-delay:0.1s">
+      <div class="service-num">02</div>
+      <h3 class="service-title" data-en="Motion Graphics" data-fr="Motion Graphics">Motion Graphics</h3>
+      <p class="service-desc" data-en="Animated titles, lower thirds, transitions, visual effects. Motion that gives your content identity." data-fr="Titres animés, sous-titres, transitions, effets visuels. Du mouvement qui donne une identité à votre contenu.">
+        Animated titles, lower thirds, transitions, visual effects. Motion that gives your content identity.
+      </p>
+      <div class="service-tags">
+        <span class="tag">After Effects</span>
+        <span class="tag">Motion Design</span>
+      </div>
+    </div>
+    <div class="service-item reveal" style="transition-delay:0.2s">
+      <div class="service-num">03</div>
+      <h3 class="service-title" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</h3>
+      <p class="service-desc" data-en="Thumbnails, brand visuals, social media templates, logos. Design that stops the scroll." data-fr="Miniatures, visuels de marque, templates réseaux sociaux, logos. Du design qui arrête le scroll.">
+        Thumbnails, brand visuals, social media templates, logos. Design that stops the scroll.
+      </p>
+      <div class="service-tags">
+        <span class="tag">Photoshop</span>
+        <span class="tag">Illustrator</span>
+        <span class="tag">Branding</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Work -->
+<section class="work" id="work">
+  <div class="work-header reveal">
+    <h2 class="work-title" data-en="Selected<br>Work" data-fr="Travaux<br>Sélectionnés">Selected<br>Work</h2>
+  </div>
+  <div class="work-grid">
+    <div class="work-item reveal">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z" stroke="rgba(245,242,236,0.4)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="work-item-inner">
+        <div class="work-cat" data-en="Motion Graphics" data-fr="Motion Graphics">Motion Graphics</div>
+        <div class="work-name" data-en="Podcast Clip Series" data-fr="Série Clips Podcast">Podcast Clip Series</div>
+      </div>
+      <div class="work-link-overlay">
+        <span data-en="View project ↗" data-fr="Voir le projet ↗">View project ↗</span>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.1s">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="rgba(245,242,236,0.4)" stroke-width="1.5"/><path d="M3 9h18M9 21V9" stroke="rgba(245,242,236,0.4)" stroke-width="1.5"/></svg>
+        </div>
+      </div>
+      <div class="work-item-inner">
+        <div class="work-cat" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</div>
+        <div class="work-name" data-en="University Event Film" data-fr="Film Événement Universitaire">University Event Film</div>
+      </div>
+      <div class="work-link-overlay">
+        <span data-en="View project ↗" data-fr="Voir le projet ↗">View project ↗</span>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.1s">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="rgba(245,242,236,0.4)" stroke-width="1.5"/><path d="M12 8v4l3 3" stroke="rgba(245,242,236,0.4)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="work-item-inner">
+        <div class="work-cat" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</div>
+        <div class="work-name" data-en="Brand Visuals" data-fr="Visuels de Marque">Brand Visuals</div>
+      </div>
+      <div class="work-link-overlay">
+        <span data-en="View project ↗" data-fr="Voir le projet ↗">View project ↗</span>
+      </div>
+    </div>
+    <div class="work-item reveal" style="transition-delay:0.2s">
+      <div class="work-placeholder">
+        <div class="work-placeholder-icon">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="rgba(245,242,236,0.4)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="work-item-inner">
+        <div class="work-cat" data-en="Motion Graphics" data-fr="Motion Graphics">Motion Graphics</div>
+        <div class="work-name" data-en="Social Media Content" data-fr="Contenu Réseaux Sociaux">Social Media Content</div>
+      </div>
+      <div class="work-link-overlay">
+        <span data-en="View project ↗" data-fr="Voir le projet ↗">View project ↗</span>
+      </div>
+    </div>
+  </div>
+  <p class="work-note reveal" data-en="* Projects shown by private link only — client confidentiality respected." data-fr="* Projets disponibles sur lien privé uniquement — confidentialité client respectée.">
+    * Projects shown by private link only — client confidentiality respected.
+  </p>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div>
+    <div class="section-label reveal" data-en="Who's behind Aenjo" data-fr="Qui est derrière Aenjo">Who's behind Aenjo</div>
+    <h2 class="about-title reveal">
+      <span>Creative</span><br>
+      <span class="line2">by instinct.</span>
+    </h2>
+    <p class="about-body reveal" data-en="I'm a self-taught creative based in Algeria, working with brands and creators across the world. I specialize in video editing, motion graphics, and visual design — building content that moves people, literally and figuratively." data-fr="Je suis un créatif autodidacte basé en Algérie, travaillant avec des marques et créateurs du monde entier. Je me spécialise dans le montage vidéo, le motion design et le design graphique — en créant du contenu qui touche les gens, au sens propre comme au figuré.">
+      I'm a self-taught creative based in Algeria, working with brands and creators across the world. I specialize in video editing, motion graphics, and visual design — building content that moves people, literally and figuratively.
+    </p>
+    <p class="about-body reveal" data-en="Fast turnaround. Clean communication. Work that actually looks like you paid for it." data-fr="Livraison rapide. Communication claire. Un rendu qui ressemble vraiment à ce que vous avez commandé.">
+      Fast turnaround. Clean communication. Work that actually looks like you paid for it.
+    </p>
+    <div class="about-stats reveal">
+      <div>
+        <div class="stat-num">3+</div>
+        <div class="stat-label" data-en="Years editing" data-fr="Ans de montage">Years editing</div>
+      </div>
+      <div>
+        <div class="stat-num">∞</div>
+        <div class="stat-label" data-en="Frames delivered" data-fr="Frames livrées">Frames delivered</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal">
+    <div class="about-visual-inner">
+      <div class="about-monogram">AE</div>
+    </div>
+    <div class="about-badge" data-en="Available for work" data-fr="Disponible">Available for work</div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="contact-bg"></div>
+  <h2 class="contact-title reveal">
+    <span data-en="Let's build" data-fr="Créons">Let's build</span><br>
+    <span class="outline" data-en="something." data-fr="ensemble.">something.</span>
+  </h2>
+  <p class="about-body reveal" style="max-width:420px;margin:0 auto" data-en="Have a project in mind? Send a DM or drop an email. I respond fast." data-fr="Un projet en tête ? Envoyez un message ou un email. Je réponds vite.">
+    Have a project in mind? Send a DM or drop an email. I respond fast.
+  </p>
+  <div class="contact-links reveal">
+    <a href="mailto:hello@aenjo.com" class="contact-link primary">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M2 4l6 5 6-5M2 4h12v8H2V4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      <span data-en="Email me" data-fr="M'écrire">Email me</span>
+    </a>
+    <a href="https://instagram.com/" target="_blank" class="contact-link">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="11.5" cy="4.5" r="0.75" fill="currentColor"/></svg>
+      <span>Instagram</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Aenjo</span>
+  <span data-en="Creative Studio — Algeria" data-fr="Studio Créatif — Algérie">Creative Studio — Algeria</span>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Language toggle
+function setLang(lang) {
+  document.querySelectorAll('[data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+}
+
+// Work item links (placeholders — replace with real project links)
+document.querySelectorAll('.work-item').forEach((item, i) => {
+  item.addEventListener('click', () => {
+    const links = ['', '', '', ''];
+    if (links[i]) window.open(links[i], '_blank');
+  });
+});
+</script>
+</body>
+</html>
