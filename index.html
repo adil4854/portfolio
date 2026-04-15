@@ -6,6 +6,8 @@
 <title>Aenjo — Creative Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<!-- Font Awesome 6 (real brand icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root{
   --black:#07070f;
@@ -78,8 +80,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .service-name{font-family:var(--font-d);font-size:26px;letter-spacing:.04em;margin-bottom:12px;line-height:1}
 .service-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:24px}
 .software-icons{display:flex;flex-wrap:wrap;gap:8px}
-.sw-icon{display:flex;align-items:center;gap:6px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:5px 11px;border-radius:4px;font-size:12px;letter-spacing:.03em;color:var(--muted);transition:border-color .2s,color .2s}
-.sw-icon:hover{border-color:var(--violet2);color:var(--white)}
+.sw-icon{display:inline-flex;align-items:center;gap:8px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:5px 12px;border-radius:30px;font-size:13px;font-weight:400;color:var(--muted);transition:all .2s ease}
+.sw-icon i{font-size:15px}
+.sw-icon:hover{border-color:var(--violet2);color:var(--white);background:rgba(108,77,181,.15);transform:translateY(-2px)}
 
 /* Work */
 .work{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06)}
@@ -193,7 +196,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 <!-- HERO -->
 <section class="hero">
   <div class="hero-photo-bg">
-    <!-- CHANGE THIS TO YOUR IMAGE FILENAME (e.g., "hero.jpg") -->
     <img src="hero.jpg" alt="Hero background">
   </div>
   <div class="hero-glow"></div>
@@ -226,32 +228,35 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 <section class="services" id="services">
   <div class="section-eyebrow reveal" data-en="What I do" data-fr="Ce que je fais">What I do</div>
   <div class="services-grid">
+    <!-- Card 1: Video Editing -->
     <div class="service-card reveal">
       <div class="service-num">01</div>
       <h3 class="service-name" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</h3>
       <p class="service-desc" data-en="Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching." data-fr="Reels, YouTube, clips podcasts, vidéos événementielles. Des montages qui retiennent l'attention.">Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching.</p>
       <div class="software-icons">
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#9999FF"/><path d="M6 17V7h3.5c2.2 0 3.5 1.2 3.5 3.2 0 2.1-1.4 3.3-3.6 3.3H8v3.5H6zm2-5.2h1.4c1.1 0 1.7-.6 1.7-1.6 0-.9-.6-1.5-1.7-1.5H8v3.1zM14 17V9.5h1.8v.9c.4-.6 1-.9 1.8-.9.2 0 .4 0 .5.1v1.8c-.2-.1-.4-.1-.7-.1-.9 0-1.5.5-1.5 1.4V17H14z" fill="white"/></svg>Premiere Pro</div>
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#111"/><circle cx="12" cy="12" r="7" stroke="white" stroke-width="1.5" fill="none"/><path d="M10 9l5 3-5 3V9z" fill="white"/></svg>CapCut</div>
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#00AEFF"/><path d="M5 7h14v2H5V7zm0 4h10v2H5v-2zm0 4h7v2H5v-2z" fill="white"/></svg>Filmora</div>
+        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#ff2e00"></i> Premiere Pro</div>
+        <div class="sw-icon"><i class="fas fa-cut" style="font-size:15px; color:#00ffcc"></i> CapCut</div>
+        <div class="sw-icon"><i class="fas fa-video" style="font-size:15px; color:#00aeff"></i> Filmora</div>
       </div>
     </div>
+    <!-- Card 2: Motion Design -->
     <div class="service-card reveal" style="transition-delay:.1s">
       <div class="service-num">02</div>
       <h3 class="service-name" data-en="Motion Design" data-fr="Motion Design">Motion Design</h3>
       <p class="service-desc" data-en="Animated titles, lower thirds, kinetic text, visual effects. Motion that gives your content a real identity." data-fr="Titres animés, sous-titres, texte cinétique, effets visuels. Du mouvement qui donne une vraie identité à votre contenu.">Animated titles, lower thirds, kinetic text, visual effects. Motion that gives your content a real identity.</p>
       <div class="software-icons">
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#1a006b"/><path d="M3 17L8 7l5 10H3zm2.8-2h4.4L8 11l-2.2 4zM13 17V7h3c2.2 0 3.5 1.2 3.5 3.1 0 1.3-.6 2.3-1.7 2.9L20 17h-2.2l-1.9-3.1H15V17h-2zm2-4.8h1c1 0 1.6-.5 1.6-1.5 0-.9-.6-1.5-1.6-1.5H15v3z" fill="#9999FF"/></svg>After Effects</div>
+        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#7b1fa2"></i> After Effects</div>
       </div>
     </div>
+    <!-- Card 3: Graphic Design -->
     <div class="service-card reveal" style="transition-delay:.2s">
       <div class="service-num">03</div>
       <h3 class="service-name" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</h3>
       <p class="service-desc" data-en="Thumbnails, brand visuals, social templates, logos. Design that stops the scroll and builds recognition." data-fr="Miniatures, visuels de marque, templates sociaux, logos. Du design qui arrête le scroll et construit la reconnaissance.">Thumbnails, brand visuals, social templates, logos. Design that stops the scroll and builds recognition.</p>
       <div class="software-icons">
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#31A8FF"/><path d="M5 17V7h3.2c2 0 3.3 1 3.3 2.8 0 1.9-1.3 2.9-3.4 2.9H7V17H5zm2-5.8h1c1 0 1.6-.5 1.6-1.3s-.6-1.3-1.6-1.3H7v2.6zM12 14c0-1.8 1.3-2.9 3.5-2.9.4 0 .7 0 1 .1v-.2c0-.8-.5-1.3-1.4-1.3-.7 0-1.3.3-2 .7l-.6-1.3c.9-.5 1.8-.8 2.9-.8 1.8 0 2.9 1 2.9 2.9V17H16.7l-.1-.7c-.5.5-1.2.8-1.9.8-1.1 0-2.7-.7-2.7-3.1zm1.9.1c0 .7.6 1.1 1.3 1.1.5 0 1-.3 1.4-.7v-1.4c-.3-.1-.5-.1-.8-.1-1.2 0-1.9.5-1.9 1.1z" fill="white"/></svg>Photoshop</div>
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#FF9A00"/><path d="M9 14.2H6l-.7 2.3H3.6L7 7h2l3.4 10H10.5L9 14.2zm-2.6-1.5h2.2L7.5 9.3l-1.1 3.4zM14 17V7h1.8v10H14z" fill="#3D0000"/></svg>Illustrator</div>
-        <div class="sw-icon"><svg width="14" height="14" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#7D2AE7"/><path d="M16.2 8.3c-.9-.9-2.1-1.4-3.4-1.4-2.7 0-4.9 2.2-4.9 4.9 0 1.3.5 2.4 1.3 3.3.3.3.7.3 1 0s.3-.7 0-1c-.6-.6-.9-1.4-.9-2.3 0-1.8 1.5-3.3 3.4-3.3.9 0 1.7.4 2.4 1 .6.6 1 1.5 1 2.3 0 .8-.3 1.6-.9 2.2-.3.3-.3.7 0 1 .1.1.3.2.5.2s.4-.1.5-.2c.9-.8 1.4-2 1.4-3.2 0-1.3-.5-2.5-1.4-3.5z" fill="white"/></svg>Canva</div>
+        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#31a8ff"></i> Photoshop</div>
+        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#ff9a00"></i> Illustrator</div>
+        <div class="sw-icon"><i class="fab fa-canva" style="font-size:15px; color:#00c4cc"></i> Canva</div>
       </div>
     </div>
   </div>
@@ -292,7 +297,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
     </div>
   </div>
   <div class="about-photo-wrap reveal">
-    <!-- CHANGE THIS TO YOUR IMAGE FILENAME (e.g., "about.jpg") -->
     <img src="about.jpg" alt="Adil — Aenjo Creative Studio">
     <div class="about-avail">
       <div class="avail-dot"></div>
