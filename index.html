@@ -27,8 +27,8 @@ html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:var(--font-b);font-size:16px;line-height:1.6;cursor:none;overflow-x:hidden}
 
 /* Cursor */
-.cursor{position:fixed;width:10px;height:10px;background:var(--violet2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
-.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(157,120,224,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.cursor{position:fixed;width:10px;height:10px;background:var(--violet2);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(157,120,224,.3);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 body:has(a:hover) .cursor,body:has(button:hover) .cursor{width:18px;height:18px;background:var(--amber)}
 body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring{width:54px;height:54px}
 @media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}}
@@ -87,7 +87,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .view-work-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,77,181,.4);gap:12px}
 
 /* Pinterest-style work grid (inside lightbox) */
-.pinterest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:20px}
+.pinterest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;margin-top:20px}
 .pinterest-card{position:relative;border-radius:16px;overflow:hidden;background:var(--gray);cursor:pointer;transition:transform .2s}
 .pinterest-card:hover{transform:translateY(-4px)}
 .pinterest-card .video-wrapper{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden}
@@ -95,9 +95,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .pinterest-card .video-wrapper .play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(0,0,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:all .2s}
 .pinterest-card .video-wrapper .play-icon i{color:white;font-size:20px}
 .pinterest-card:hover .play-icon{background:var(--amber);transform:translate(-50%,-50%) scale(1.1)}
-.pinterest-card .info{padding:12px}
-.pinterest-card .info h4{font-family:var(--font-d);font-size:16px;margin-bottom:4px}
-.pinterest-card .info p{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+/* No text/titles below the card */
+
+/* Video player lightbox (for playing video without leaving site) */
+.video-player-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.98);z-index:100000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(16px)}
+.video-player-lightbox.active{display:flex}
+.video-player-container{position:relative;width:90%;max-width:1100px;background:var(--card);border-radius:20px;overflow:hidden;padding:20px}
+.video-player-header{display:flex;justify-content:flex-end;margin-bottom:10px}
+.video-player-close{background:none;border:none;color:white;font-size:28px;cursor:pointer;line-height:1}
+.video-player-close:hover{color:var(--amber)}
+.video-player-wrapper{position:relative;width:100%;aspect-ratio:16/9;background:black;border-radius:12px;overflow:hidden}
+.video-player-wrapper iframe{width:100%;height:100%;border:none}
 
 /* Image gallery */
 .image-gallery-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.96);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
@@ -281,7 +289,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </section>
 
-<!-- Pinterest Gallery Lightbox (for videos) -->
+<!-- Pinterest Gallery Lightbox (for video thumbnails) -->
 <div id="pinterestLightbox" class="image-gallery-lightbox">
   <div class="image-gallery-container">
     <div class="image-gallery-header">
@@ -289,6 +297,18 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
       <button class="close-gallery" onclick="closePinterestGallery()">&times;</button>
     </div>
     <div id="pinterestGrid" class="pinterest-grid"></div>
+  </div>
+</div>
+
+<!-- Video Player Lightbox (plays the video without leaving site) -->
+<div id="videoPlayerLightbox" class="video-player-lightbox">
+  <div class="video-player-container">
+    <div class="video-player-header">
+      <button class="video-player-close" onclick="closeVideoPlayer()">&times;</button>
+    </div>
+    <div class="video-player-wrapper">
+      <iframe id="videoPlayerIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
   </div>
 </div>
 
@@ -378,30 +398,30 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 </footer>
 
 <script>
-// Video data for both categories
+// Video data for both categories (no generic titles - just IDs)
 const videoCategories = {
   videoEditing: {
     title: "Video Editing",
     videos: [
-      { id: "rOZoEQgWBwA", title: "Podcast Clip Series" },
-      { id: "2wTQ9JTu4EQ", title: "University Event Film" },
-      { id: "p51TaMVn7QY", title: "Brand Visuals" },
-      { id: "mmawncYcIvI", title: "Social Media Content" },
-      { id: "__JsNgWfNCM", title: "Motion Graphics Reel" }
+      { id: "rOZoEQgWBwA" },
+      { id: "2wTQ9JTu4EQ" },
+      { id: "p51TaMVn7QY" },
+      { id: "mmawncYcIvI" },
+      { id: "__JsNgWfNCM" }
     ]
   },
   motionDesign: {
     title: "Motion Design",
     videos: [
-      { id: "4eMRmxJmtVM", title: "Motion Design 1" },
-      { id: "OQiBQsyO-tU", title: "Motion Design 2" },
-      { id: "6uoi8JXPWpU", title: "Motion Design 3" },
-      { id: "wTfEewLiG9I", title: "Motion Design 4" }
+      { id: "4eMRmxJmtVM" },
+      { id: "OQiBQsyO-tU" },
+      { id: "6uoi8JXPWpU" },
+      { id: "wTfEewLiG9I" }
     ]
   }
 };
 
-// Pinterest gallery open
+// Open Pinterest gallery (shows thumbnails)
 function openPinterestGallery(category) {
   const data = videoCategories[category];
   if (!data || data.videos.length === 0) {
@@ -414,15 +434,12 @@ function openPinterestGallery(category) {
   data.videos.forEach(video => {
     const card = document.createElement('div');
     card.className = 'pinterest-card';
-    card.onclick = () => window.open(`https://youtube.com/watch?v=${video.id}`, '_blank');
+    // When clicked, open video player lightbox (not YouTube)
+    card.onclick = () => openVideoPlayer(video.id);
     card.innerHTML = `
       <div class="video-wrapper">
         <iframe src="https://www.youtube.com/embed/${video.id}?autoplay=0&mute=1&loop=1&playlist=${video.id}&controls=0&modestbranding=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="play-icon"><i class="fas fa-play"></i></div>
-      </div>
-      <div class="info">
-        <h4>${video.title}</h4>
-        <p>Click to watch on YouTube</p>
       </div>
     `;
     // Hover to play (autoplay)
@@ -441,6 +458,18 @@ function openPinterestGallery(category) {
 function closePinterestGallery() {
   document.getElementById('pinterestLightbox').classList.remove('active');
   document.getElementById('pinterestGrid').innerHTML = '';
+}
+
+// Open video player lightbox (plays video, no redirect)
+function openVideoPlayer(videoId) {
+  const iframe = document.getElementById('videoPlayerIframe');
+  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&controls=1&showinfo=0`;
+  document.getElementById('videoPlayerLightbox').classList.add('active');
+}
+
+function closeVideoPlayer() {
+  document.getElementById('videoPlayerLightbox').classList.remove('active');
+  document.getElementById('videoPlayerIframe').src = '';
 }
 
 // ========== GRAPHIC DESIGN IMAGES (auto-load from /design/ folder) ==========
@@ -535,7 +564,6 @@ function setLang(l){
   document.querySelectorAll('[data-en]').forEach(el=>{const t=el.getAttribute('data-'+l);if(t)el.innerHTML=t});
   document.getElementById('btn-en').classList.toggle('active',l==='en');
   document.getElementById('btn-fr').classList.toggle('active',l==='fr');
-  // Update button texts (keeping icons)
   const btns = document.querySelectorAll('.view-work-btn');
   if(btns[0]) btns[0].querySelector('span').innerText = l==='fr' ? 'Voir travaux' : 'Watch Work';
   if(btns[1]) btns[1].querySelector('span').innerText = l==='fr' ? 'Voir travaux' : 'Watch Work';
