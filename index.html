@@ -90,7 +90,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .section-title{font-family:var(--font-d);font-size:clamp(44px,6vw,78px);letter-spacing:.03em;line-height:1}
 .work-hint{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--hint);max-width:180px;text-align:right;line-height:1.6}
 .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.work-card{position:relative;aspect-ratio:16/10;background:var(--card);overflow:hidden;cursor:none}
+.work-card{position:relative;aspect-ratio:16/10;background:var(--card);overflow:hidden;cursor:pointer}
 .work-card-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;background:linear-gradient(to top,rgba(7,7,15,.93) 0%,transparent 55%);transition:transform .4s ease}
 .work-card:hover .work-card-inner{transform:translateY(-4px)}
 .work-card-cat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:5px}
@@ -100,6 +100,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .work-card-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .work-card-icon{width:48px;height:48px;border-radius:50%;border:1px solid rgba(240,238,248,.08);display:flex;align-items:center;justify-content:center}
 .work-note{margin-top:18px;font-size:13px;font-weight:300;color:var(--hint);font-style:italic}
+
+/* Lightbox (video popup) */
+.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.lightbox.active{display:flex}
+.lightbox-content{position:relative;width:90%;max-width:1000px;aspect-ratio:16/9}
+.lightbox-content iframe{width:100%;height:100%;border:none;border-radius:12px}
+.lightbox-close{position:absolute;top:-40px;right:0;background:none;border:none;color:white;font-size:32px;cursor:pointer;z-index:10001}
+.lightbox-close:hover{color:var(--amber)}
 
 /* About */
 .about{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06);display:grid;grid-template-columns:1fr 370px;gap:72px;align-items:center}
@@ -228,7 +236,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 <section class="services" id="services">
   <div class="section-eyebrow reveal" data-en="What I do" data-fr="Ce que je fais">What I do</div>
   <div class="services-grid">
-    <!-- Card 1: Video Editing -->
     <div class="service-card reveal">
       <div class="service-num">01</div>
       <h3 class="service-name" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</h3>
@@ -239,7 +246,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
         <div class="sw-icon"><i class="fas fa-video" style="font-size:15px; color:#00aeff"></i> Filmora</div>
       </div>
     </div>
-    <!-- Card 2: Motion Design -->
     <div class="service-card reveal" style="transition-delay:.1s">
       <div class="service-num">02</div>
       <h3 class="service-name" data-en="Motion Design" data-fr="Motion Design">Motion Design</h3>
@@ -248,7 +254,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
         <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#7b1fa2"></i> After Effects</div>
       </div>
     </div>
-    <!-- Card 3: Graphic Design -->
     <div class="service-card reveal" style="transition-delay:.2s">
       <div class="service-num">03</div>
       <h3 class="service-name" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</h3>
@@ -262,15 +267,23 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </section>
 
-<!-- WORK -->
+<!-- WORK with Lightbox -->
 <section class="work" id="work">
   <div class="work-header reveal">
     <h2 class="section-title" data-en="SELECTED<br>WORK" data-fr="TRAVAUX<br>SÉLECTIONNÉS">SELECTED<br>WORK</h2>
-    <p class="work-hint" data-en="Private links — shared on request" data-fr="Liens privés — partagés sur demande">Private links — shared on request</p>
+    <p class="work-hint" data-en="Click any card to watch" data-fr="Cliquez sur une carte pour voir">Click any card to watch</p>
   </div>
   <div class="work-grid" id="work-grid"></div>
-  <p class="work-note reveal" data-en="* All projects available by private link — client confidentiality respected." data-fr="* Tous les projets sont disponibles sur lien privé — confidentialité client respectée.">* All projects available by private link — client confidentiality respected.</p>
+  <p class="work-note reveal" data-en="* Full portfolio includes motion graphics on Instagram — ask for link." data-fr="* Portfolio complet inclut motion design sur Instagram — demandez le lien.">* Full portfolio includes motion graphics on Instagram — ask for link.</p>
 </section>
+
+<!-- Lightbox -->
+<div id="videoLightbox" class="lightbox" onclick="closeLightbox()">
+  <div class="lightbox-content" onclick="event.stopPropagation()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
 
 <!-- ABOUT -->
 <section class="about" id="about">
@@ -338,10 +351,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 
 <script>
 // ════════════════════════════════════════════
-//  YOUR PROJECTS — edit this to add your work
-//  To add: copy a block, fill title + link
-//  To remove: delete the block
-//  color: "violet" | "amber" | "teal"
+//  YOUR PROJECTS — with YouTube Shorts links
 // ════════════════════════════════════════════
 const PROJECTS = [
   {
@@ -349,7 +359,7 @@ const PROJECTS = [
     titleFr: "Série Clips Podcast",
     category: "Motion Graphics",
     categoryFr: "Motion Graphics",
-    link: "",        // ← paste your private link here
+    videoId: "rOZoEQgWBwA",   // YouTube Shorts ID
     color: "violet"
   },
   {
@@ -357,7 +367,7 @@ const PROJECTS = [
     titleFr: "Film Événement Universitaire",
     category: "Video Editing",
     categoryFr: "Montage Vidéo",
-    link: "",        // ← paste your private link here
+    videoId: "2wTQ9JTu4EQ",
     color: "amber"
   },
   {
@@ -365,7 +375,7 @@ const PROJECTS = [
     titleFr: "Visuels de Marque",
     category: "Graphic Design",
     categoryFr: "Design Graphique",
-    link: "",        // ← paste your private link here
+    videoId: "p51TaMVn7QY",
     color: "teal"
   },
   {
@@ -373,11 +383,50 @@ const PROJECTS = [
     titleFr: "Contenu Réseaux Sociaux",
     category: "Video Editing",
     categoryFr: "Montage Vidéo",
-    link: "",        // ← paste your private link here
+    videoId: "mmawncYcIvI",
     color: "violet"
+  },
+  {
+    title: "Motion Graphics Reel",
+    titleFr: "Motion Design Reel",
+    category: "Motion Graphics",
+    categoryFr: "Motion Design",
+    videoId: "__JsNgWfNCM",
+    color: "amber"
+  },
+  {
+    title: "Instagram Motion",
+    titleFr: "Motion Instagram",
+    category: "Motion Graphics",
+    categoryFr: "Motion Design",
+    videoId: "",   // ← add your Instagram link or video ID here later
+    color: "violet",
+    isInstagram: true
   }
 ];
 // ════════════════════════════════════════════
+
+// Lightbox functions
+function openLightbox(videoId, isInstagram = false) {
+  const lightbox = document.getElementById('videoLightbox');
+  const iframe = document.getElementById('lightboxIframe');
+  if (isInstagram && videoId) {
+    // For Instagram, you can embed a post (but Instagram doesn't allow direct video embed easily)
+    // We'll just open Instagram in a new tab for now
+    window.open(videoId, '_blank');
+    return;
+  }
+  if (videoId) {
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+    lightbox.classList.add('active');
+  }
+}
+function closeLightbox() {
+  const lightbox = document.getElementById('videoLightbox');
+  const iframe = document.getElementById('lightboxIframe');
+  lightbox.classList.remove('active');
+  iframe.src = ''; // stop video
+}
 
 // Cursor
 const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
@@ -399,7 +448,7 @@ function setLang(l){
   renderProjects();
 }
 
-// Render work grid
+// Render work grid (clickable cards that open lightbox)
 const colorMap={
   violet:{bg:'rgba(108,77,181,.13)',ac:'#9d78e0'},
   amber:{bg:'rgba(245,166,35,.1)',ac:'#f5a623'},
@@ -407,14 +456,15 @@ const colorMap={
 };
 function renderProjects(){
   const grid=document.getElementById('work-grid');
-  const viewTxt=lang==='fr'?'VOIR LE PROJET ↗':'VIEW PROJECT ↗';
+  const viewTxt=lang==='fr'?'LIRE LA VIDÉO ▶':'WATCH VIDEO ▶';
   const soonTxt=lang==='fr'?'BIENTÔT DISPONIBLE':'COMING SOON';
   grid.innerHTML=PROJECTS.map((p,i)=>{
     const c=colorMap[p.color]||colorMap.violet;
     const title=lang==='fr'?(p.titleFr||p.title):p.title;
     const cat=lang==='fr'?(p.categoryFr||p.category):p.category;
-    const hasLink=p.link&&p.link.trim()!=='';
-    return `<div class="work-card reveal" style="transition-delay:${i*.08}s" ${hasLink?`onclick="window.open('${p.link}','_blank')"`:''}>
+    const hasVideo = p.videoId && p.videoId.trim() !== '';
+    const onClick = hasVideo ? `onclick="openLightbox('${p.videoId}', ${!!p.isInstagram})"` : '';
+    return `<div class="work-card reveal" style="transition-delay:${i*.08}s" ${onClick}>
       <div class="work-card-placeholder"><div class="work-card-icon" style="border-color:${c.ac}44">
         <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z" stroke="${c.ac}" stroke-width="1.5" stroke-linejoin="round"/></svg>
       </div></div>
@@ -422,7 +472,7 @@ function renderProjects(){
         <div class="work-card-cat" style="color:${c.ac}">${cat}</div>
         <div class="work-card-title">${title}</div>
       </div>
-      <div class="work-card-overlay" style="background:${c.bg}">${hasLink?viewTxt:soonTxt}</div>
+      <div class="work-card-overlay" style="background:${c.bg}">${hasVideo ? viewTxt : soonTxt}</div>
     </div>`;
   }).join('');
   document.querySelectorAll('#work-grid .reveal').forEach(el=>obs.observe(el));
