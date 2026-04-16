@@ -66,45 +66,55 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .scroll-hint{position:absolute;bottom:32px;right:48px;z-index:2;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hint);writing-mode:vertical-rl;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s ease forwards 1.2s}
 .scroll-hint::before{content:'';display:block;width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--hint))}
 
-/* Services */
+/* Services - Redesigned */
 .services{padding:120px 48px 100px;border-top:1px solid rgba(240,238,248,.06)}
 .section-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--violet2);margin-bottom:52px;display:flex;align-items:center;gap:14px}
 .section-eyebrow::after{content:'';flex:0 0 44px;height:1px;background:var(--violet);opacity:.5}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.service-card{background:var(--card);padding:40px 32px;position:relative;overflow:hidden;transition:background .3s}
-.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--violet),var(--amber));transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
-.service-card:hover{background:#1e1b30}
-.service-card:hover::after{transform:scaleX(1)}
-.service-num{font-size:11px;letter-spacing:.1em;color:var(--violet2);opacity:.45;margin-bottom:18px}
-.service-name{font-family:var(--font-d);font-size:26px;letter-spacing:.04em;margin-bottom:12px;line-height:1}
-.service-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:24px}
-.software-icons{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.sw-icon{display:inline-flex;align-items:center;gap:8px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:5px 12px;border-radius:30px;font-size:13px;font-weight:400;color:var(--muted);transition:all .2s ease}
-.sw-icon i{font-size:15px}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.service-card{background:var(--card);padding:40px 32px;position:relative;border-radius:16px;transition:all .3s ease;border:1px solid rgba(240,238,248,.05)}
+.service-card:hover{transform:translateY(-8px);border-color:rgba(157,120,224,.3);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--violet),var(--amber),var(--violet2));border-radius:16px 16px 0 0;opacity:0;transition:opacity .3s}
+.service-card:hover::before{opacity:1}
+.service-icon{font-size:48px;margin-bottom:24px;color:var(--violet2)}
+.service-num{font-size:11px;letter-spacing:.1em;color:var(--violet2);opacity:.6;margin-bottom:12px}
+.service-name{font-family:var(--font-d);font-size:28px;letter-spacing:.04em;margin-bottom:16px;line-height:1.2}
+.service-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:28px}
+.software-icons{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.sw-icon{display:inline-flex;align-items:center;gap:8px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:6px 14px;border-radius:40px;font-size:12px;font-weight:400;color:var(--muted);transition:all .2s ease}
+.sw-icon i{font-size:14px}
 .sw-icon:hover{border-color:var(--violet2);color:var(--white);background:rgba(108,77,181,.15);transform:translateY(-2px)}
-.view-work-btn{background:transparent;border:1px solid var(--violet2);color:var(--violet2);padding:10px 20px;font-family:var(--font-d);font-size:14px;letter-spacing:.1em;cursor:pointer;transition:all .2s;margin-top:10px;width:100%}
-.view-work-btn:hover{background:var(--violet2);color:var(--black);transform:translateY(-2px)}
+.view-work-btn{background:linear-gradient(135deg,var(--violet),var(--violet2));border:none;color:white;padding:12px 24px;font-family:var(--font-d);font-size:14px;letter-spacing:.1em;cursor:pointer;transition:all .2s;width:100%;border-radius:40px;display:flex;align-items:center;justify-content:center;gap:8px}
+.view-work-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(108,77,181,.4);gap:12px}
 
-/* Lightbox Gallery */
-.gallery-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.96);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
-.gallery-lightbox.active{display:flex}
-.gallery-container{position:relative;width:90%;max-width:1100px;background:var(--card);border-radius:16px;overflow:hidden;padding:20px}
-.gallery-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--hint)}
-.gallery-title{font-family:var(--font-d);font-size:22px;letter-spacing:.05em;color:var(--violet2)}
+/* Pinterest-style work grid (inside lightbox) */
+.pinterest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:20px}
+.pinterest-card{position:relative;border-radius:16px;overflow:hidden;background:var(--gray);cursor:pointer;transition:transform .2s}
+.pinterest-card:hover{transform:translateY(-4px)}
+.pinterest-card .video-wrapper{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden}
+.pinterest-card .video-wrapper iframe{width:100%;height:100%;position:absolute;top:0;left:0;border:none;pointer-events:none}
+.pinterest-card .video-wrapper .play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:rgba(0,0,0,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:all .2s}
+.pinterest-card .video-wrapper .play-icon i{color:white;font-size:20px}
+.pinterest-card:hover .play-icon{background:var(--amber);transform:translate(-50%,-50%) scale(1.1)}
+.pinterest-card .info{padding:12px}
+.pinterest-card .info h4{font-family:var(--font-d);font-size:16px;margin-bottom:4px}
+.pinterest-card .info p{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+
+/* Image gallery */
+.image-gallery-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.96);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.image-gallery-lightbox.active{display:flex}
+.image-gallery-container{position:relative;width:90%;max-width:1100px;background:var(--card);border-radius:16px;overflow:hidden;padding:20px}
+.image-gallery-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--hint)}
+.image-gallery-title{font-family:var(--font-d);font-size:22px;letter-spacing:.05em;color:var(--violet2)}
 .close-gallery{background:none;border:none;color:var(--white);font-size:28px;cursor:pointer;line-height:1}
 .close-gallery:hover{color:var(--amber)}
-.video-player-wrapper{position:relative;width:100%;aspect-ratio:16/9;background:black;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.video-player-wrapper iframe{width:100%;height:100%;border:none}
-.instagram-wrapper{width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:auto;background:#0d0c1a}
-.instagram-wrapper blockquote{margin:0 auto !important;max-width:540px !important;width:100% !important}
-.gallery-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px}
+.image-gallery-main{width:100%;margin-bottom:20px}
+.image-gallery-main img{width:100%;max-height:70vh;object-fit:contain;border-radius:12px}
+.image-gallery-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px}
 .prev-btn,.next-btn{background:var(--violet);border:none;color:white;padding:10px 20px;font-family:var(--font-d);font-size:16px;cursor:pointer;border-radius:40px;transition:all .2s}
 .prev-btn:hover,.next-btn:hover{background:var(--amber);color:var(--black);transform:scale(1.02)}
-.video-counter{font-size:13px;color:var(--muted);font-family:var(--font-b)}
-.gallery-thumbnails{display:flex;gap:10px;margin-top:16px;overflow-x:auto;padding-bottom:8px}
-.thumbnail{width:100px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.6;transition:all .2s;border:2px solid transparent}
-.thumbnail.active{opacity:1;border-color:var(--amber)}
-.thumbnail:hover{opacity:1}
+.image-gallery-thumbnails{display:flex;gap:10px;margin-top:16px;overflow-x:auto;padding-bottom:8px}
+.image-thumbnail{width:80px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.6;transition:all .2s;border:2px solid transparent}
+.image-thumbnail.active{opacity:1;border-color:var(--amber)}
 
 /* About */
 .about{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06);display:grid;grid-template-columns:1fr 370px;gap:72px;align-items:center}
@@ -163,9 +173,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   .about-photo-wrap{max-width:400px}
   .contact{padding:80px 24px 60px}
   footer{padding:24px;justify-content:center;text-align:center}
-  .gallery-container{width:95%;padding:12px}
-  .thumbnail{width:70px;height:45px}
-  .instagram-wrapper blockquote{max-width:100% !important}
+  .pinterest-grid{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   .hero-title{font-size:clamp(54px,22vw,94px)}
@@ -227,65 +235,81 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   <div class="scroll-hint" data-en="Scroll" data-fr="Défiler">Scroll</div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES - Redesigned -->
 <section class="services" id="services">
   <div class="section-eyebrow reveal" data-en="What I do" data-fr="Ce que je fais">What I do</div>
   <div class="services-grid">
     <!-- Video Editing Card -->
     <div class="service-card reveal">
+      <div class="service-icon"><i class="fas fa-video"></i></div>
       <div class="service-num">01</div>
       <h3 class="service-name" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</h3>
       <p class="service-desc" data-en="Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching." data-fr="Reels, YouTube, clips podcasts, vidéos événementielles. Des montages qui retiennent l'attention.">Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching.</p>
       <div class="software-icons">
-        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#ff2e00"></i> Premiere Pro</div>
-        <div class="sw-icon"><i class="fas fa-cut" style="font-size:15px; color:#00ffcc"></i> CapCut</div>
-        <div class="sw-icon"><i class="fas fa-video" style="font-size:15px; color:#00aeff"></i> Filmora</div>
+        <div class="sw-icon"><i class="fab fa-adobe"></i> Premiere Pro</div>
+        <div class="sw-icon"><i class="fas fa-cut"></i> CapCut</div>
+        <div class="sw-icon"><i class="fas fa-video"></i> Filmora</div>
       </div>
-      <button class="view-work-btn" onclick="openGallery('videoEditing')" data-en="VIEW PROJECTS (5 videos)" data-fr="VOIR PROJETS (5 vidéos)">VIEW PROJECTS (5 videos)</button>
+      <button class="view-work-btn" onclick="openPinterestGallery('videoEditing')"><i class="fas fa-play"></i> <span data-en="Watch Work" data-fr="Voir travaux">Watch Work</span></button>
     </div>
 
     <!-- Motion Design Card -->
     <div class="service-card reveal" style="transition-delay:.1s">
+      <div class="service-icon"><i class="fas fa-magic"></i></div>
       <div class="service-num">02</div>
       <h3 class="service-name" data-en="Motion Design" data-fr="Motion Design">Motion Design</h3>
       <p class="service-desc" data-en="Animated titles, lower thirds, kinetic text, visual effects. Motion that gives your content a real identity." data-fr="Titres animés, sous-titres, texte cinétique, effets visuels. Du mouvement qui donne une vraie identité à votre contenu.">Animated titles, lower thirds, kinetic text, visual effects. Motion that gives your content a real identity.</p>
       <div class="software-icons">
-        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#7b1fa2"></i> After Effects</div>
+        <div class="sw-icon"><i class="fab fa-adobe"></i> After Effects</div>
       </div>
-      <button class="view-work-btn" onclick="openGallery('motionDesign')" data-en="VIEW PROJECTS (4 Instagram Reels)" data-fr="VOIR PROJETS (4 Reels Instagram)">VIEW PROJECTS (4 Instagram Reels)</button>
+      <button class="view-work-btn" onclick="openPinterestGallery('motionDesign')"><i class="fas fa-play"></i> <span data-en="Watch Work" data-fr="Voir travaux">Watch Work</span></button>
     </div>
 
     <!-- Graphic Design Card -->
     <div class="service-card reveal" style="transition-delay:.2s">
+      <div class="service-icon"><i class="fas fa-palette"></i></div>
       <div class="service-num">03</div>
       <h3 class="service-name" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</h3>
       <p class="service-desc" data-en="Thumbnails, brand visuals, social templates, logos. Design that stops the scroll and builds recognition." data-fr="Miniatures, visuels de marque, templates sociaux, logos. Du design qui arrête le scroll et construit la reconnaissance.">Thumbnails, brand visuals, social templates, logos. Design that stops the scroll and builds recognition.</p>
       <div class="software-icons">
-        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#31a8ff"></i> Photoshop</div>
-        <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#ff9a00"></i> Illustrator</div>
-        <div class="sw-icon"><i class="fab fa-canva" style="font-size:15px; color:#00c4cc"></i> Canva</div>
+        <div class="sw-icon"><i class="fab fa-adobe"></i> Photoshop</div>
+        <div class="sw-icon"><i class="fab fa-adobe"></i> Illustrator</div>
+        <div class="sw-icon"><i class="fab fa-canva"></i> Canva</div>
       </div>
-      <button class="view-work-btn" onclick="openGallery('graphicDesign')" data-en="VIEW PROJECTS (coming soon)" data-fr="VOIR PROJETS (bientôt)">VIEW PROJECTS (coming soon)</button>
+      <button class="view-work-btn" onclick="openImageGallery()"><i class="fas fa-images"></i> <span data-en="View Gallery" data-fr="Voir galerie">View Gallery</span></button>
     </div>
   </div>
 </section>
 
-<!-- Gallery Lightbox -->
-<div id="galleryLightbox" class="gallery-lightbox">
-  <div class="gallery-container">
-    <div class="gallery-header">
-      <span class="gallery-title" id="galleryTitle">Video Editing</span>
-      <button class="close-gallery" onclick="closeGallery()">&times;</button>
+<!-- Pinterest Gallery Lightbox (for videos) -->
+<div id="pinterestLightbox" class="image-gallery-lightbox">
+  <div class="image-gallery-container">
+    <div class="image-gallery-header">
+      <span class="image-gallery-title" id="pinterestTitle">Video Gallery</span>
+      <button class="close-gallery" onclick="closePinterestGallery()">&times;</button>
     </div>
-    <div class="video-player-wrapper" id="videoPlayerWrapper">
-      <iframe id="galleryIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div id="pinterestGrid" class="pinterest-grid"></div>
+  </div>
+</div>
+
+<!-- Image Gallery Lightbox (for graphic design) -->
+<div id="imageGalleryLightbox" class="image-gallery-lightbox">
+  <div class="image-gallery-container">
+    <div class="image-gallery-header">
+      <span class="image-gallery-title">Graphic Design</span>
+      <button class="close-gallery" onclick="closeImageGallery()">&times;</button>
     </div>
-    <div class="gallery-nav">
-      <button class="prev-btn" onclick="prevVideo()"><i class="fas fa-chevron-left"></i> Previous</button>
-      <span class="video-counter" id="videoCounter">1 / 0</span>
-      <button class="next-btn" onclick="nextVideo()">Next <i class="fas fa-chevron-right"></i></button>
+    <div class="image-gallery-content">
+      <div class="image-gallery-main">
+        <img id="imageGalleryMainImg" src="" alt="Gallery image">
+      </div>
+      <div class="image-gallery-nav">
+        <button class="prev-btn" onclick="prevImage()"><i class="fas fa-chevron-left"></i> Previous</button>
+        <span id="imageCounter">1 / 0</span>
+        <button class="next-btn" onclick="nextImage()">Next <i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="image-gallery-thumbnails" id="imageGalleryThumbnails"></div>
     </div>
-    <div class="gallery-thumbnails" id="galleryThumbnails"></div>
   </div>
 </div>
 
@@ -354,166 +378,168 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 </footer>
 
 <script>
-// Video data for each category
-const videoData = {
+// Video data for both categories
+const videoCategories = {
   videoEditing: {
-    title: "Video Editing Projects",
+    title: "Video Editing",
     videos: [
-      { type: 'youtube', id: "rOZoEQgWBwA", title: "Podcast Clip Series" },
-      { type: 'youtube', id: "2wTQ9JTu4EQ", title: "University Event Film" },
-      { type: 'youtube', id: "p51TaMVn7QY", title: "Brand Visuals" },
-      { type: 'youtube', id: "mmawncYcIvI", title: "Social Media Content" },
-      { type: 'youtube', id: "__JsNgWfNCM", title: "Motion Graphics Reel" }
+      { id: "rOZoEQgWBwA", title: "Podcast Clip Series" },
+      { id: "2wTQ9JTu4EQ", title: "University Event Film" },
+      { id: "p51TaMVn7QY", title: "Brand Visuals" },
+      { id: "mmawncYcIvI", title: "Social Media Content" },
+      { id: "__JsNgWfNCM", title: "Motion Graphics Reel" }
     ]
   },
   motionDesign: {
-    title: "Motion Design Projects (Instagram Reels)",
+    title: "Motion Design",
     videos: [
-      { 
-        type: 'instagram', 
-        embedCode: '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DV1NRjciCN_/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DV1NRjciCN_/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"/></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DV1NRjciCN_/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by its_adil._ (@its_adil._)</a></p></div></blockquote>', 
-        title: "Did you choose your life… or just react to it?" 
-      },
-      { 
-        type: 'instagram', 
-        embedCode: '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DVwM2VriLa_/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DVwM2VriLa_/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"/></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DVwM2VriLa_/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by its_adil._ (@its_adil._)</a></p></div></blockquote>', 
-        title: "Who are you really?" 
-      },
-      { 
-        type: 'instagram', 
-        embedCode: '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DVrDP2wiOxL/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DVrDP2wiOxL/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"/></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DVrDP2wiOxL/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by its_adil._ (@its_adil._)</a></p></div></blockquote>', 
-        title: "Ever noticed how excited you feel after telling people your big plans?" 
-      },
-      { 
-        type: 'instagram', 
-        embedCode: '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DVl0BHZiPv_/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:658px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DVl0BHZiPv_/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"/></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">View this post on Instagram</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DVl0BHZiPv_/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">A post shared by its_adil._ (@its_adil._)</a></p></div></blockquote>', 
-        title: "Protect your energy ⚡ Everything depends on it." 
-      }
+      { id: "4eMRmxJmtVM", title: "Motion Design 1" },
+      { id: "OQiBQsyO-tU", title: "Motion Design 2" },
+      { id: "6uoi8JXPWpU", title: "Motion Design 3" },
+      { id: "wTfEewLiG9I", title: "Motion Design 4" }
     ]
-  },
-  graphicDesign: {
-    title: "Graphic Design Projects",
-    videos: []
   }
 };
 
-let currentCategory = null;
-let currentIndex = 0;
-
-function openGallery(category) {
-  const data = videoData[category];
+// Pinterest gallery open
+function openPinterestGallery(category) {
+  const data = videoCategories[category];
   if (!data || data.videos.length === 0) {
-    alert("No videos added yet for this category. I'll add them soon!");
+    alert("No videos in this category yet.");
     return;
   }
-  currentCategory = category;
-  currentIndex = 0;
-  document.getElementById('galleryTitle').innerText = data.title;
-  document.getElementById('galleryLightbox').classList.add('active');
-  updateVideoPlayer();
-  updateThumbnails();
+  document.getElementById('pinterestTitle').innerText = data.title;
+  const grid = document.getElementById('pinterestGrid');
+  grid.innerHTML = '';
+  data.videos.forEach(video => {
+    const card = document.createElement('div');
+    card.className = 'pinterest-card';
+    card.onclick = () => window.open(`https://youtube.com/watch?v=${video.id}`, '_blank');
+    card.innerHTML = `
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/${video.id}?autoplay=0&mute=1&loop=1&playlist=${video.id}&controls=0&modestbranding=1&rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="play-icon"><i class="fas fa-play"></i></div>
+      </div>
+      <div class="info">
+        <h4>${video.title}</h4>
+        <p>Click to watch on YouTube</p>
+      </div>
+    `;
+    // Hover to play (autoplay)
+    const iframe = card.querySelector('iframe');
+    card.addEventListener('mouseenter', () => {
+      iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&mute=1&loop=1&playlist=${video.id}&controls=0&modestbranding=1&rel=0`;
+    });
+    card.addEventListener('mouseleave', () => {
+      iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=0&mute=1&loop=1&playlist=${video.id}&controls=0&modestbranding=1&rel=0`;
+    });
+    grid.appendChild(card);
+  });
+  document.getElementById('pinterestLightbox').classList.add('active');
 }
 
-function closeGallery() {
-  document.getElementById('galleryLightbox').classList.remove('active');
-  const iframe = document.getElementById('galleryIframe');
-  iframe.src = '';
-  const wrapper = document.getElementById('videoPlayerWrapper');
-  wrapper.innerHTML = '<iframe id="galleryIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+function closePinterestGallery() {
+  document.getElementById('pinterestLightbox').classList.remove('active');
+  document.getElementById('pinterestGrid').innerHTML = '';
 }
 
-function updateVideoPlayer() {
-  const data = videoData[currentCategory];
-  if (!data || data.videos.length === 0) return;
-  const video = data.videos[currentIndex];
-  const wrapper = document.getElementById('videoPlayerWrapper');
-  
-  if (video.type === 'youtube') {
-    wrapper.innerHTML = `<iframe id="galleryIframe" src="https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-  } else if (video.type === 'instagram') {
-    wrapper.innerHTML = `<div class="instagram-wrapper" id="instagramEmbedContainer"></div>`;
-    const container = document.getElementById('instagramEmbedContainer');
-    container.innerHTML = video.embedCode;
-    if (typeof instgrm === 'undefined') {
-      const script = document.createElement('script');
-      script.src = '//www.instagram.com/embed.js';
-      document.body.appendChild(script);
-    } else {
-      window.instgrm.Embeds.process();
-    }
+// ========== GRAPHIC DESIGN IMAGES (auto-load from /design/ folder) ==========
+let designImages = [];
+
+async function openImageGallery() {
+  const btn = event.target.closest('button');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = "Loading...";
+  try {
+    const repoPath = window.location.pathname.split('/').slice(0, -1).join('/');
+    const apiUrl = `https://api.github.com/repos/${window.location.hostname.split('.')[0]}${repoPath}/contents/design`;
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error("No 'design' folder found");
+    const files = await response.json();
+    const imageFiles = files.filter(f => f.name.match(/\.(jpg|jpeg|png|gif|webp)$/i));
+    designImages = imageFiles.map(f => ({ url: f.download_url, title: f.name.replace(/\.[^/.]+$/, "") }));
+    if (designImages.length === 0) throw new Error("No images in design folder");
+    currentImageIndex = 0;
+    document.getElementById('imageGalleryLightbox').classList.add('active');
+    updateImageGallery();
+    renderImageThumbnails();
+  } catch (error) {
+    alert("Could not load images. Make sure you have a folder named 'design' in your repository with images inside.");
+  } finally {
+    btn.innerHTML = originalText;
   }
-  document.getElementById('videoCounter').innerText = `${currentIndex+1} / ${data.videos.length}`;
-  document.querySelectorAll('.thumbnail').forEach((thumb, idx) => {
-    if (idx === currentIndex) thumb.classList.add('active');
+}
+
+let currentImageIndex = 0;
+
+function closeImageGallery() {
+  document.getElementById('imageGalleryLightbox').classList.remove('active');
+}
+
+function updateImageGallery() {
+  if (!designImages.length) return;
+  document.getElementById('imageGalleryMainImg').src = designImages[currentImageIndex].url;
+  document.getElementById('imageCounter').innerText = `${currentImageIndex+1} / ${designImages.length}`;
+  document.querySelectorAll('.image-thumbnail').forEach((thumb, idx) => {
+    if (idx === currentImageIndex) thumb.classList.add('active');
     else thumb.classList.remove('active');
   });
 }
 
-function updateThumbnails() {
-  const data = videoData[currentCategory];
-  if (!data) return;
-  const container = document.getElementById('galleryThumbnails');
+function renderImageThumbnails() {
+  const container = document.getElementById('imageGalleryThumbnails');
   container.innerHTML = '';
-  data.videos.forEach((video, idx) => {
+  designImages.forEach((img, idx) => {
     const thumb = document.createElement('img');
-    if (video.type === 'youtube') {
-      thumb.src = `https://img.youtube.com/vi/${video.id}/mqdefault.jpg`;
-    } else {
-      thumb.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60"%3E%3Crect width="100" height="60" fill="%23333"/%3E%3Ctext x="50" y="35" text-anchor="middle" fill="%23999" font-size="10"%3EInsta%3C/text%3E%3C/svg%3E';
-    }
-    thumb.alt = video.title;
-    thumb.classList.add('thumbnail');
-    if (idx === currentIndex) thumb.classList.add('active');
+    thumb.src = img.url;
+    thumb.alt = img.title;
+    thumb.classList.add('image-thumbnail');
+    if (idx === currentImageIndex) thumb.classList.add('active');
     thumb.onclick = () => {
-      currentIndex = idx;
-      updateVideoPlayer();
-      updateThumbnails();
+      currentImageIndex = idx;
+      updateImageGallery();
+      renderImageThumbnails();
     };
     container.appendChild(thumb);
   });
 }
 
-function prevVideo() {
-  const data = videoData[currentCategory];
-  if (!data) return;
-  if (currentIndex > 0) {
-    currentIndex--;
-    updateVideoPlayer();
-    updateThumbnails();
+function prevImage() {
+  if (currentImageIndex > 0) {
+    currentImageIndex--;
+    updateImageGallery();
+    renderImageThumbnails();
   }
 }
 
-function nextVideo() {
-  const data = videoData[currentCategory];
-  if (!data) return;
-  if (currentIndex < data.videos.length - 1) {
-    currentIndex++;
-    updateVideoPlayer();
-    updateThumbnails();
+function nextImage() {
+  if (currentImageIndex < designImages.length - 1) {
+    currentImageIndex++;
+    updateImageGallery();
+    renderImageThumbnails();
   }
 }
 
-// Cursor
+// ========== CURSOR & SCROLL REVEAL ==========
 const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 (function tick(){cursor.style.left=mx+'px';cursor.style.top=my+'px';rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
 
-// Scroll reveal
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Language
 let lang='en';
 function setLang(l){
   lang=l;
   document.querySelectorAll('[data-en]').forEach(el=>{const t=el.getAttribute('data-'+l);if(t)el.innerHTML=t});
   document.getElementById('btn-en').classList.toggle('active',l==='en');
   document.getElementById('btn-fr').classList.toggle('active',l==='fr');
+  // Update button texts (keeping icons)
   const btns = document.querySelectorAll('.view-work-btn');
-  if (btns[0]) btns[0].innerHTML = lang === 'fr' ? 'VOIR PROJETS (5 vidéos)' : 'VIEW PROJECTS (5 videos)';
-  if (btns[1]) btns[1].innerHTML = lang === 'fr' ? 'VOIR PROJETS (4 Reels Instagram)' : 'VIEW PROJECTS (4 Instagram Reels)';
-  if (btns[2]) btns[2].innerHTML = lang === 'fr' ? 'VOIR PROJETS (bientôt)' : 'VIEW PROJECTS (coming soon)';
+  if(btns[0]) btns[0].querySelector('span').innerText = l==='fr' ? 'Voir travaux' : 'Watch Work';
+  if(btns[1]) btns[1].querySelector('span').innerText = l==='fr' ? 'Voir travaux' : 'Watch Work';
+  if(btns[2]) btns[2].querySelector('span').innerText = l==='fr' ? 'Voir galerie' : 'View Gallery';
 }
 </script>
 </body>
