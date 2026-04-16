@@ -26,13 +26,18 @@
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:var(--font-b);font-size:16px;line-height:1.6;cursor:none;overflow-x:hidden}
 
-/* Canvas for shooting stars (behind interactive stars) */
-#starsCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9996;}
-
-/* Interactive twinkling stars container */
-.interactive-stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;overflow:hidden;}
+/* Stars - behind everything */
+#starsCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+.interactive-stars{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:2;}
 .interactive-star{position:absolute;width:3px;height:3px;background:white;border-radius:50%;box-shadow:0 0 6px rgba(255,255,255,0.8);opacity:0;animation:twinkle 2s infinite alternate;will-change:transform, opacity;pointer-events:none;}
 @keyframes twinkle{0%{opacity:0.2;transform:scale(1);}100%{opacity:1;transform:scale(1.3);box-shadow:0 0 12px rgba(255,255,255,1);}}
+
+/* Hero and content have higher z-index */
+.hero{position:relative;z-index:10;}
+.services{position:relative;z-index:10;}
+.about{position:relative;z-index:10;}
+.contact{position:relative;z-index:10;}
+footer{position:relative;z-index:10;}
 
 /* Cursor */
 .cursor{position:fixed;width:10px;height:10px;background:var(--violet2);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:screen}
@@ -56,11 +61,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:c
 
 /* Hero */
 .hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:0 48px 80px}
-.hero-photo-bg{position:absolute;right:0;top:0;bottom:0;width:55%;z-index:0}
+.hero-photo-bg{position:absolute;right:0;top:0;bottom:0;width:55%;z-index:5}
 .hero-photo-bg img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:saturate(.7) contrast(1.05) brightness(.8)}
 .hero-photo-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,rgba(7,7,15,.88) 30%,rgba(7,7,15,.25) 65%,rgba(7,7,15,.5) 100%),linear-gradient(to top,var(--black) 0%,rgba(7,7,15,.65) 25%,transparent 52%),linear-gradient(to bottom,var(--black) 0%,transparent 16%)}
-.hero-glow{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 52% 62% at 74% 38%,rgba(108,77,181,.3) 0%,transparent 65%),radial-gradient(ellipse 32% 32% at 16% 78%,rgba(245,166,35,.07) 0%,transparent 60%)}
-.hero-content{position:relative;z-index:2;max-width:580px}
+.hero-glow{position:absolute;inset:0;pointer-events:none;z-index:6;background:radial-gradient(ellipse 52% 62% at 74% 38%,rgba(108,77,181,.3) 0%,transparent 65%),radial-gradient(ellipse 32% 32% at 16% 78%,rgba(245,166,35,.07) 0%,transparent 60%)}
+.hero-content{position:relative;z-index:15;max-width:580px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--violet2);margin-bottom:28px;opacity:0;animation:fadeUp .6s ease forwards .2s}
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--violet2)}
 .hero-title{font-family:var(--font-d);font-size:clamp(76px,10.5vw,148px);line-height:.92;letter-spacing:.02em;opacity:0;animation:fadeUp .8s ease forwards .35s}
@@ -72,30 +77,32 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:c
 .btn-primary:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--violet),0 0 20px var(--amber);}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--hint);padding-bottom:2px;transition:color .2s,border-color .2s;white-space:nowrap}
 .btn-secondary:hover{color:var(--white);border-color:var(--white);text-shadow:0 0 4px white;}
-.scroll-hint{position:absolute;bottom:32px;right:48px;z-index:2;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hint);writing-mode:vertical-rl;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s ease forwards 1.2s}
+.scroll-hint{position:absolute;bottom:32px;right:48px;z-index:15;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hint);writing-mode:vertical-rl;display:flex;align-items:center;gap:10px;opacity:0;animation:fadeIn 1s ease forwards 1.2s}
 .scroll-hint::before{content:'';display:block;width:1px;height:48px;background:linear-gradient(to bottom,transparent,var(--hint));animation:scrollPulse 1.5s ease-in-out infinite}
 @keyframes scrollPulse{0%{opacity:0.3;height:30px}50%{opacity:1;height:48px}100%{opacity:0.3;height:30px}}
 
-/* Services */
-.services{padding:120px 48px 100px;border-top:1px solid rgba(240,238,248,.06)}
+/* Services - enhanced */
+.services{padding:120px 48px 100px;border-top:1px solid rgba(240,238,248,.06);background:linear-gradient(180deg, rgba(7,7,15,0) 0%, rgba(108,77,181,0.03) 100%);}
 .section-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--violet2);margin-bottom:52px;display:flex;align-items:center;gap:14px}
 .section-eyebrow::after{content:'';flex:0 0 44px;height:1px;background:var(--violet);opacity:.5;box-shadow:0 0 6px var(--violet);}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.service-card{background:var(--card);padding:40px 32px;position:relative;overflow:hidden;transition:background .3s}
-.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--violet),var(--amber));transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
-.service-card:hover{background:#1e1b30}
-.service-card:hover::after{transform:scaleX(1)}
-.service-num{font-size:11px;letter-spacing:.1em;color:var(--violet2);opacity:.45;margin-bottom:18px}
-.service-name{font-family:var(--font-d);font-size:26px;letter-spacing:.04em;margin-bottom:12px;line-height:1}
-.service-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:24px}
-.software-icons{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
-.sw-icon{display:inline-flex;align-items:center;gap:8px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:5px 12px;border-radius:30px;font-size:13px;font-weight:400;color:var(--muted);transition:all .2s ease}
-.sw-icon i{font-size:15px}
-.sw-icon:hover{border-color:var(--violet2);color:var(--white);background:rgba(108,77,181,.15);transform:translateY(-2px);box-shadow:0 0 6px var(--violet2);}
-.view-work-btn{background:transparent;border:1px solid var(--violet2);color:var(--violet2);padding:10px 20px;font-family:var(--font-d);font-size:14px;letter-spacing:.1em;cursor:pointer;transition:all .2s;margin-top:10px;width:100%;border-radius:40px}
-.view-work-btn:hover{background:var(--violet2);color:var(--black);transform:translateY(-2px);box-shadow:0 0 12px var(--violet2);}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.service-card{background:var(--card);padding:40px 32px;position:relative;border-radius:20px;transition:all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);border:1px solid rgba(240,238,248,.08);box-shadow:0 10px 30px rgba(0,0,0,.2);}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--violet),var(--amber),var(--violet2));border-radius:20px 20px 0 0;opacity:0;transition:opacity .4s;}
+.service-card:hover{transform:translateY(-8px);border-color:rgba(157,120,224,.3);box-shadow:0 25px 40px rgba(0,0,0,.3);}
+.service-card:hover::before{opacity:1;}
+.service-icon{font-size:56px;margin-bottom:24px;color:var(--violet2);transition:transform 0.3s;}
+.service-card:hover .service-icon{transform:scale(1.1) rotate(5deg);}
+.service-num{font-size:11px;letter-spacing:.1em;color:var(--violet2);opacity:.6;margin-bottom:12px;font-weight:500;}
+.service-name{font-family:var(--font-d);font-size:32px;letter-spacing:.04em;margin-bottom:16px;line-height:1.2;background:linear-gradient(135deg,var(--white),var(--violet2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.service-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:28px}
+.software-icons{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.sw-icon{display:inline-flex;align-items:center;gap:8px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:6px 14px;border-radius:40px;font-size:12px;font-weight:400;color:var(--muted);transition:all .2s ease}
+.sw-icon i{font-size:14px}
+.sw-icon:hover{border-color:var(--violet2);color:var(--white);background:rgba(108,77,181,.15);transform:translateY(-2px);box-shadow:0 0 8px var(--violet2);}
+.view-work-btn{background:linear-gradient(135deg,var(--violet),var(--violet2));border:none;color:white;padding:12px 24px;font-family:var(--font-d);font-size:14px;letter-spacing:.1em;cursor:pointer;transition:all .2s;width:100%;border-radius:40px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 15px rgba(108,77,181,.2);}
+.view-work-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(108,77,181,.4);gap:12px;}
 
-/* Lightbox */
+/* Lightbox, gallery, etc. unchanged */
 .lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:10000;display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;transition:visibility 0.3s, opacity 0.3s;}
 .lightbox.active{visibility:visible;opacity:1;}
 .lightbox .lightbox-content{width:90%;max-width:1300px;max-height:85vh;background:var(--card);border-radius:20px;padding:20px;overflow-y:auto;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.2,0.9,0.4,1.1);}
@@ -115,8 +122,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:c
 .pinterest-card .video-wrapper iframe{display:none;width:100%;height:100%;position:absolute;top:0;left:0;border:none;}
 .pinterest-card.active-iframe .video-wrapper img{display:none;}
 .pinterest-card.active-iframe .video-wrapper iframe{display:block;}
-
-/* Video player full lightbox */
 .video-player-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.98);z-index:10002;display:none;align-items:center;justify-content:center;backdrop-filter:blur(16px);}
 .video-player-lightbox.active{display:flex;}
 .video-player-container{width:90%;max-width:1100px;background:var(--card);border-radius:20px;padding:20px;}
@@ -126,7 +131,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:c
 .video-player-wrapper{aspect-ratio:16/9;background:black;border-radius:12px;overflow:hidden;}
 .video-player-wrapper iframe{width:100%;height:100%;border:none;}
 
-/* About, Contact, Footer */
+/* About, Contact, Footer unchanged */
 .about{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06);display:grid;grid-template-columns:1fr 370px;gap:72px;align-items:center}
 .about-title{font-family:var(--font-d);font-size:clamp(38px,5vw,66px);letter-spacing:.03em;line-height:1.02;margin-bottom:28px}
 .about-title .amber{color:var(--amber);text-shadow:0 0 6px var(--amber);}
@@ -173,7 +178,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   .hero-title{font-size:clamp(62px,18vw,110px)}
   .scroll-hint{display:none}
   .services{padding:80px 24px 60px}
-  .services-grid{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr;gap:20px}
   .about{padding:80px 24px;grid-template-columns:1fr;gap:48px}
   .about-photo-wrap{max-width:400px}
   .contact{padding:80px 24px 60px}
@@ -245,6 +250,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   <div class="section-eyebrow reveal" data-en="What I do" data-fr="Ce que je fais">What I do</div>
   <div class="services-grid">
     <div class="service-card reveal">
+      <div class="service-icon"><i class="fas fa-video"></i></div>
       <div class="service-num">01</div>
       <h3 class="service-name" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</h3>
       <p class="service-desc" data-en="Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching." data-fr="Reels, YouTube, clips podcasts, vidéos événementielles. Des montages qui retiennent l'attention.">Reels, YouTube content, podcast clips, event videos. Clean cuts that keep people watching.</p>
@@ -256,6 +262,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
       <button class="view-work-btn" onclick="openLightbox('videoEditing')"><i class="fas fa-play"></i> <span data-en="Watch Work" data-fr="Voir travaux">Watch Work</span></button>
     </div>
     <div class="service-card reveal" style="transition-delay:.1s">
+      <div class="service-icon"><i class="fas fa-magic"></i></div>
       <div class="service-num">02</div>
       <h3 class="service-name" data-en="Motion Design" data-fr="Motion Design">Motion Design</h3>
       <p class="service-desc" data-en="Animated titles, lower thirds, kinetic text, visual effects. Motion that gives your content a real identity." data-fr="Titres animés, sous-titres, texte cinétique, effets visuels. Du mouvement qui donne une vraie identité à votre contenu.">Animated titles, lower thirds, kinetic text, visual effects. Motion that gives your content a real identity.</p>
@@ -265,6 +272,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
       <button class="view-work-btn" onclick="openLightbox('motionDesign')"><i class="fas fa-play"></i> <span data-en="Watch Work" data-fr="Voir travaux">Watch Work</span></button>
     </div>
     <div class="service-card reveal" style="transition-delay:.2s">
+      <div class="service-icon"><i class="fas fa-palette"></i></div>
       <div class="service-num">03</div>
       <h3 class="service-name" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</h3>
       <p class="service-desc" data-en="Thumbnails, brand visuals, social templates, logos. Design that stops the scroll and builds recognition." data-fr="Miniatures, visuels de marque, templates sociaux, logos. Du design qui arrête le scroll et construit la reconnaissance.">Thumbnails, brand visuals, social templates, logos. Design that stops the scroll and builds recognition.</p>
@@ -289,7 +297,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </div>
 
-<!-- Full video player -->
 <div id="videoPlayerLightbox" class="video-player-lightbox">
   <div class="video-player-container">
     <div class="video-player-header">
@@ -301,7 +308,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </div>
 
-<!-- Image gallery for graphic design -->
 <div id="imageGalleryLightbox" class="video-player-lightbox" style="z-index:10000;">
   <div class="video-player-container">
     <div class="video-player-header">
@@ -427,7 +433,6 @@ function openLightbox(category) {
     `;
     const img = card.querySelector('.lazy-thumb');
     const iframe = card.querySelector('iframe');
-    // Lazy load thumbnail
     const imgObserver = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -438,7 +443,6 @@ function openLightbox(category) {
       });
     });
     imgObserver.observe(img);
-    // Click to play inline
     card.addEventListener('click', (e) => {
       e.stopPropagation();
       if (!card.classList.contains('active-iframe')) {
@@ -451,13 +455,11 @@ function openLightbox(category) {
     fragment.appendChild(card);
   });
   grid.appendChild(fragment);
-  const lightbox = document.getElementById('lightbox');
-  lightbox.classList.add('active');
+  document.getElementById('lightbox').classList.add('active');
 }
 
 function closeLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  lightbox.classList.remove('active');
+  document.getElementById('lightbox').classList.remove('active');
   document.getElementById('lightboxGrid').innerHTML = '';
 }
 
@@ -553,7 +555,7 @@ function nextImage() {
   }
 }
 
-// ========== INTERACTIVE TWINKLING STARS (DOM) ==========
+// ========== INTERACTIVE TWINKLING STARS ==========
 function initInteractiveStars() {
   const container = document.getElementById('interactiveStars');
   const starCount = 180;
@@ -568,8 +570,6 @@ function initInteractiveStars() {
     container.appendChild(star);
     stars.push(star);
   }
-  
-  // Mouse repulsion effect
   document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -595,7 +595,7 @@ function initInteractiveStars() {
 }
 initInteractiveStars();
 
-// ========== REALISTIC SHOOTING STARS (Canvas) ==========
+// ========== SHOOTING STARS (Canvas) ==========
 const canvas = document.getElementById('starsCanvas');
 const ctx = canvas.getContext('2d');
 let width, height;
