@@ -6,7 +6,6 @@
 <title>Aenjo — Creative Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
-<!-- Font Awesome 6 (real brand icons) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root{
@@ -79,35 +78,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .service-num{font-size:11px;letter-spacing:.1em;color:var(--violet2);opacity:.45;margin-bottom:18px}
 .service-name{font-family:var(--font-d);font-size:26px;letter-spacing:.04em;margin-bottom:12px;line-height:1}
 .service-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:24px}
-.software-icons{display:flex;flex-wrap:wrap;gap:8px}
+.software-icons{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
 .sw-icon{display:inline-flex;align-items:center;gap:8px;background:rgba(240,238,248,.04);border:1px solid rgba(240,238,248,.08);padding:5px 12px;border-radius:30px;font-size:13px;font-weight:400;color:var(--muted);transition:all .2s ease}
 .sw-icon i{font-size:15px}
 .sw-icon:hover{border-color:var(--violet2);color:var(--white);background:rgba(108,77,181,.15);transform:translateY(-2px)}
+.view-work-btn{background:transparent;border:1px solid var(--violet2);color:var(--violet2);padding:10px 20px;font-family:var(--font-d);font-size:14px;letter-spacing:.1em;cursor:pointer;transition:all .2s;margin-top:10px;width:100%}
+.view-work-btn:hover{background:var(--violet2);color:var(--black);transform:translateY(-2px)}
 
-/* Work */
-.work{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06)}
-.work-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:44px;gap:20px}
-.section-title{font-family:var(--font-d);font-size:clamp(44px,6vw,78px);letter-spacing:.03em;line-height:1}
-.work-hint{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--hint);max-width:180px;text-align:right;line-height:1.6}
-.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.work-card{position:relative;aspect-ratio:16/10;background:var(--card);overflow:hidden;cursor:pointer}
-.work-card-inner{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;background:linear-gradient(to top,rgba(7,7,15,.93) 0%,transparent 55%);transition:transform .4s ease}
-.work-card:hover .work-card-inner{transform:translateY(-4px)}
-.work-card-cat{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:5px}
-.work-card-title{font-family:var(--font-d);font-size:20px;letter-spacing:.04em}
-.work-card-overlay{position:absolute;inset:0;background:rgba(108,77,181,.14);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;font-family:var(--font-d);font-size:17px;letter-spacing:.1em;color:var(--white)}
-.work-card:hover .work-card-overlay{opacity:1}
-.work-card-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.work-card-icon{width:48px;height:48px;border-radius:50%;border:1px solid rgba(240,238,248,.08);display:flex;align-items:center;justify-content:center}
-.work-note{margin-top:18px;font-size:13px;font-weight:300;color:var(--hint);font-style:italic}
-
-/* Lightbox (video popup) */
-.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
-.lightbox.active{display:flex}
-.lightbox-content{position:relative;width:90%;max-width:1000px;aspect-ratio:16/9}
-.lightbox-content iframe{width:100%;height:100%;border:none;border-radius:12px}
-.lightbox-close{position:absolute;top:-40px;right:0;background:none;border:none;color:white;font-size:32px;cursor:pointer;z-index:10001}
-.lightbox-close:hover{color:var(--amber)}
+/* Lightbox Gallery */
+.gallery-lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.96);z-index:10000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+.gallery-lightbox.active{display:flex}
+.gallery-container{position:relative;width:90%;max-width:1100px;background:var(--card);border-radius:16px;overflow:hidden;padding:20px}
+.gallery-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--hint)}
+.gallery-title{font-family:var(--font-d);font-size:22px;letter-spacing:.05em;color:var(--violet2)}
+.close-gallery{background:none;border:none;color:var(--white);font-size:28px;cursor:pointer;line-height:1}
+.close-gallery:hover{color:var(--amber)}
+.video-player-wrapper{position:relative;width:100%;aspect-ratio:16/9;background:black;border-radius:12px;overflow:hidden}
+.video-player-wrapper iframe{width:100%;height:100%;border:none}
+.gallery-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:16px}
+.prev-btn,.next-btn{background:var(--violet);border:none;color:white;padding:10px 20px;font-family:var(--font-d);font-size:16px;cursor:pointer;border-radius:40px;transition:all .2s}
+.prev-btn:hover,.next-btn:hover{background:var(--amber);color:var(--black);transform:scale(1.02)}
+.video-counter{font-size:13px;color:var(--muted);font-family:var(--font-b)}
+.gallery-thumbnails{display:flex;gap:10px;margin-top:16px;overflow-x:auto;padding-bottom:8px}
+.thumbnail{width:100px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer;opacity:.6;transition:all .2s;border:2px solid transparent}
+.thumbnail.active{opacity:1;border-color:var(--amber)}
+.thumbnail:hover{opacity:1}
 
 /* About */
 .about{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06);display:grid;grid-template-columns:1fr 370px;gap:72px;align-items:center}
@@ -162,14 +157,12 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   .scroll-hint{display:none}
   .services{padding:80px 24px 60px}
   .services-grid{grid-template-columns:1fr}
-  .work{padding:80px 24px}
-  .work-grid{grid-template-columns:1fr}
-  .work-header{flex-direction:column;align-items:flex-start}
-  .work-hint{text-align:left;max-width:100%}
   .about{padding:80px 24px;grid-template-columns:1fr;gap:48px}
   .about-photo-wrap{max-width:400px}
   .contact{padding:80px 24px 60px}
   footer{padding:24px;justify-content:center;text-align:center}
+  .gallery-container{width:95%;padding:12px}
+  .thumbnail{width:70px;height:45px}
 }
 @media(max-width:480px){
   .hero-title{font-size:clamp(54px,22vw,94px)}
@@ -189,7 +182,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 <nav>
   <a href="#" class="nav-logo">AE<span>NJO</span></a>
   <div class="nav-links">
-    <a href="#work"     data-en="Work"     data-fr="Travaux">Work</a>
     <a href="#services" data-en="Services" data-fr="Services">Services</a>
     <a href="#about"    data-en="About"    data-fr="À propos">About</a>
     <a href="#contact"  data-en="Contact"  data-fr="Contact">Contact</a>
@@ -224,18 +216,19 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
         <span data-en="START A PROJECT" data-fr="DÉMARRER UN PROJET">START A PROJECT</span>
         <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
-      <a href="#work" class="btn-secondary">
-        <span data-en="See my work" data-fr="Voir mes travaux">See my work</span>
+      <a href="#services" class="btn-secondary">
+        <span data-en="View services" data-fr="Voir services">View services</span>
       </a>
     </div>
   </div>
   <div class="scroll-hint" data-en="Scroll" data-fr="Défiler">Scroll</div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES with embedded galleries -->
 <section class="services" id="services">
   <div class="section-eyebrow reveal" data-en="What I do" data-fr="Ce que je fais">What I do</div>
   <div class="services-grid">
+    <!-- Video Editing Card -->
     <div class="service-card reveal">
       <div class="service-num">01</div>
       <h3 class="service-name" data-en="Video Editing" data-fr="Montage Vidéo">Video Editing</h3>
@@ -245,7 +238,10 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
         <div class="sw-icon"><i class="fas fa-cut" style="font-size:15px; color:#00ffcc"></i> CapCut</div>
         <div class="sw-icon"><i class="fas fa-video" style="font-size:15px; color:#00aeff"></i> Filmora</div>
       </div>
+      <button class="view-work-btn" onclick="openGallery('videoEditing')" data-en="VIEW PROJECTS (5 videos)" data-fr="VOIR PROJETS (5 vidéos)">VIEW PROJECTS (5 videos)</button>
     </div>
+
+    <!-- Motion Design Card -->
     <div class="service-card reveal" style="transition-delay:.1s">
       <div class="service-num">02</div>
       <h3 class="service-name" data-en="Motion Design" data-fr="Motion Design">Motion Design</h3>
@@ -253,7 +249,10 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
       <div class="software-icons">
         <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#7b1fa2"></i> After Effects</div>
       </div>
+      <button class="view-work-btn" onclick="openGallery('motionDesign')" data-en="VIEW PROJECTS (coming soon)" data-fr="VOIR PROJETS (bientôt)">VIEW PROJECTS (coming soon)</button>
     </div>
+
+    <!-- Graphic Design Card -->
     <div class="service-card reveal" style="transition-delay:.2s">
       <div class="service-num">03</div>
       <h3 class="service-name" data-en="Graphic Design" data-fr="Design Graphique">Graphic Design</h3>
@@ -263,25 +262,27 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
         <div class="sw-icon"><i class="fab fa-adobe" style="font-size:15px; color:#ff9a00"></i> Illustrator</div>
         <div class="sw-icon"><i class="fab fa-canva" style="font-size:15px; color:#00c4cc"></i> Canva</div>
       </div>
+      <button class="view-work-btn" onclick="openGallery('graphicDesign')" data-en="VIEW PROJECTS (coming soon)" data-fr="VOIR PROJETS (bientôt)">VIEW PROJECTS (coming soon)</button>
     </div>
   </div>
 </section>
 
-<!-- WORK with Lightbox -->
-<section class="work" id="work">
-  <div class="work-header reveal">
-    <h2 class="section-title" data-en="SELECTED<br>WORK" data-fr="TRAVAUX<br>SÉLECTIONNÉS">SELECTED<br>WORK</h2>
-    <p class="work-hint" data-en="Click any card to watch" data-fr="Cliquez sur une carte pour voir">Click any card to watch</p>
-  </div>
-  <div class="work-grid" id="work-grid"></div>
-  <p class="work-note reveal" data-en="* Full portfolio includes motion graphics on Instagram — ask for link." data-fr="* Portfolio complet inclut motion design sur Instagram — demandez le lien.">* Full portfolio includes motion graphics on Instagram — ask for link.</p>
-</section>
-
-<!-- Lightbox -->
-<div id="videoLightbox" class="lightbox" onclick="closeLightbox()">
-  <div class="lightbox-content" onclick="event.stopPropagation()">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-    <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<!-- Gallery Lightbox (hidden initially) -->
+<div id="galleryLightbox" class="gallery-lightbox">
+  <div class="gallery-container">
+    <div class="gallery-header">
+      <span class="gallery-title" id="galleryTitle">Video Editing</span>
+      <button class="close-gallery" onclick="closeGallery()">&times;</button>
+    </div>
+    <div class="video-player-wrapper">
+      <iframe id="galleryIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="gallery-nav">
+      <button class="prev-btn" onclick="prevVideo()"><i class="fas fa-chevron-left"></i> Previous</button>
+      <span class="video-counter" id="videoCounter">1 / 0</span>
+      <button class="next-btn" onclick="nextVideo()">Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="gallery-thumbnails" id="galleryThumbnails"></div>
   </div>
 </div>
 
@@ -350,82 +351,104 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 </footer>
 
 <script>
-// ════════════════════════════════════════════
-//  YOUR PROJECTS — with YouTube Shorts links
-// ════════════════════════════════════════════
-const PROJECTS = [
-  {
-    title: "Podcast Clip Series",
-    titleFr: "Série Clips Podcast",
-    category: "Motion Graphics",
-    categoryFr: "Motion Graphics",
-    videoId: "rOZoEQgWBwA",   // YouTube Shorts ID
-    color: "violet"
+// Video data for each category
+const videoData = {
+  videoEditing: {
+    title: "Video Editing Projects",
+    videos: [
+      { id: "rOZoEQgWBwA", title: "Podcast Clip Series" },
+      { id: "2wTQ9JTu4EQ", title: "University Event Film" },
+      { id: "p51TaMVn7QY", title: "Brand Visuals" },
+      { id: "mmawncYcIvI", title: "Social Media Content" },
+      { id: "__JsNgWfNCM", title: "Motion Graphics Reel" }
+    ]
   },
-  {
-    title: "University Event Film",
-    titleFr: "Film Événement Universitaire",
-    category: "Video Editing",
-    categoryFr: "Montage Vidéo",
-    videoId: "2wTQ9JTu4EQ",
-    color: "amber"
+  motionDesign: {
+    title: "Motion Design Projects",
+    videos: []  // ← you will add your motion graphics videos here later
   },
-  {
-    title: "Brand Visuals",
-    titleFr: "Visuels de Marque",
-    category: "Graphic Design",
-    categoryFr: "Design Graphique",
-    videoId: "p51TaMVn7QY",
-    color: "teal"
-  },
-  {
-    title: "Social Media Content",
-    titleFr: "Contenu Réseaux Sociaux",
-    category: "Video Editing",
-    categoryFr: "Montage Vidéo",
-    videoId: "mmawncYcIvI",
-    color: "violet"
-  },
-  {
-    title: "Motion Graphics Reel",
-    titleFr: "Motion Design Reel",
-    category: "Motion Graphics",
-    categoryFr: "Motion Design",
-    videoId: "__JsNgWfNCM",
-    color: "amber"
-  },
-  {
-    title: "Instagram Motion",
-    titleFr: "Motion Instagram",
-    category: "Motion Graphics",
-    categoryFr: "Motion Design",
-    videoId: "",   // ← add your Instagram link or video ID here later
-    color: "violet",
-    isInstagram: true
+  graphicDesign: {
+    title: "Graphic Design Projects",
+    videos: []  // ← you will add your graphic design videos here later
   }
-];
-// ════════════════════════════════════════════
+};
 
-// Lightbox functions
-function openLightbox(videoId, isInstagram = false) {
-  const lightbox = document.getElementById('videoLightbox');
-  const iframe = document.getElementById('lightboxIframe');
-  if (isInstagram && videoId) {
-    // For Instagram, you can embed a post (but Instagram doesn't allow direct video embed easily)
-    // We'll just open Instagram in a new tab for now
-    window.open(videoId, '_blank');
+let currentCategory = null;
+let currentIndex = 0;
+
+function openGallery(category) {
+  const data = videoData[category];
+  if (!data || data.videos.length === 0) {
+    alert("No videos added yet for this category. I'll add them soon!");
     return;
   }
-  if (videoId) {
-    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-    lightbox.classList.add('active');
+  currentCategory = category;
+  currentIndex = 0;
+  document.getElementById('galleryTitle').innerText = data.title;
+  document.getElementById('galleryLightbox').classList.add('active');
+  updateVideoPlayer();
+  updateThumbnails();
+}
+
+function closeGallery() {
+  document.getElementById('galleryLightbox').classList.remove('active');
+  const iframe = document.getElementById('galleryIframe');
+  iframe.src = ''; // stop video
+}
+
+function updateVideoPlayer() {
+  const data = videoData[currentCategory];
+  if (!data || data.videos.length === 0) return;
+  const video = data.videos[currentIndex];
+  const iframe = document.getElementById('galleryIframe');
+  // YouTube embed with modestbranding=1, rel=0, controls=1, showinfo=0 (deprecated but try)
+  iframe.src = `https://www.youtube.com/embed/${video.id}?autoplay=1&modestbranding=1&rel=0&controls=1&showinfo=0&iv_load_policy=3`;
+  document.getElementById('videoCounter').innerText = `${currentIndex+1} / ${data.videos.length}`;
+  // Update active thumbnail
+  document.querySelectorAll('.thumbnail').forEach((thumb, idx) => {
+    if (idx === currentIndex) thumb.classList.add('active');
+    else thumb.classList.remove('active');
+  });
+}
+
+function updateThumbnails() {
+  const data = videoData[currentCategory];
+  if (!data) return;
+  const container = document.getElementById('galleryThumbnails');
+  container.innerHTML = '';
+  data.videos.forEach((video, idx) => {
+    const thumb = document.createElement('img');
+    thumb.src = `https://img.youtube.com/vi/${video.id}/mqdefault.jpg`;
+    thumb.alt = video.title;
+    thumb.classList.add('thumbnail');
+    if (idx === currentIndex) thumb.classList.add('active');
+    thumb.onclick = () => {
+      currentIndex = idx;
+      updateVideoPlayer();
+      updateThumbnails();
+    };
+    container.appendChild(thumb);
+  });
+}
+
+function prevVideo() {
+  const data = videoData[currentCategory];
+  if (!data) return;
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateVideoPlayer();
+    updateThumbnails();
   }
 }
-function closeLightbox() {
-  const lightbox = document.getElementById('videoLightbox');
-  const iframe = document.getElementById('lightboxIframe');
-  lightbox.classList.remove('active');
-  iframe.src = ''; // stop video
+
+function nextVideo() {
+  const data = videoData[currentCategory];
+  if (!data) return;
+  if (currentIndex < data.videos.length - 1) {
+    currentIndex++;
+    updateVideoPlayer();
+    updateThumbnails();
+  }
 }
 
 // Cursor
@@ -438,46 +461,21 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Language
+// Language (simple for buttons)
 let lang='en';
 function setLang(l){
   lang=l;
   document.querySelectorAll('[data-en]').forEach(el=>{const t=el.getAttribute('data-'+l);if(t)el.innerHTML=t});
   document.getElementById('btn-en').classList.toggle('active',l==='en');
   document.getElementById('btn-fr').classList.toggle('active',l==='fr');
-  renderProjects();
+  // Update button texts dynamically
+  const btns = document.querySelectorAll('.view-work-btn');
+  if (btns[0]) {
+    btns[0].innerHTML = lang === 'fr' ? 'VOIR PROJETS (5 vidéos)' : 'VIEW PROJECTS (5 videos)';
+    btns[1].innerHTML = lang === 'fr' ? 'VOIR PROJETS (bientôt)' : 'VIEW PROJECTS (coming soon)';
+    btns[2].innerHTML = lang === 'fr' ? 'VOIR PROJETS (bientôt)' : 'VIEW PROJECTS (coming soon)';
+  }
 }
-
-// Render work grid (clickable cards that open lightbox)
-const colorMap={
-  violet:{bg:'rgba(108,77,181,.13)',ac:'#9d78e0'},
-  amber:{bg:'rgba(245,166,35,.1)',ac:'#f5a623'},
-  teal:{bg:'rgba(61,158,158,.1)',ac:'#3d9e9e'}
-};
-function renderProjects(){
-  const grid=document.getElementById('work-grid');
-  const viewTxt=lang==='fr'?'LIRE LA VIDÉO ▶':'WATCH VIDEO ▶';
-  const soonTxt=lang==='fr'?'BIENTÔT DISPONIBLE':'COMING SOON';
-  grid.innerHTML=PROJECTS.map((p,i)=>{
-    const c=colorMap[p.color]||colorMap.violet;
-    const title=lang==='fr'?(p.titleFr||p.title):p.title;
-    const cat=lang==='fr'?(p.categoryFr||p.category):p.category;
-    const hasVideo = p.videoId && p.videoId.trim() !== '';
-    const onClick = hasVideo ? `onclick="openLightbox('${p.videoId}', ${!!p.isInstagram})"` : '';
-    return `<div class="work-card reveal" style="transition-delay:${i*.08}s" ${onClick}>
-      <div class="work-card-placeholder"><div class="work-card-icon" style="border-color:${c.ac}44">
-        <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z" stroke="${c.ac}" stroke-width="1.5" stroke-linejoin="round"/></svg>
-      </div></div>
-      <div class="work-card-inner">
-        <div class="work-card-cat" style="color:${c.ac}">${cat}</div>
-        <div class="work-card-title">${title}</div>
-      </div>
-      <div class="work-card-overlay" style="background:${c.bg}">${hasVideo ? viewTxt : soonTxt}</div>
-    </div>`;
-  }).join('');
-  document.querySelectorAll('#work-grid .reveal').forEach(el=>obs.observe(el));
-}
-renderProjects();
 </script>
 </body>
 </html>
