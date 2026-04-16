@@ -26,10 +26,6 @@
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:var(--font-b);font-size:16px;line-height:1.6;cursor:none;overflow-x:hidden}
 
-/* Main content wrapper for blur effect when lightbox is open */
-.main-content{transition:filter 0.3s ease;}
-body.lightbox-open .main-content{filter:blur(8px);}
-
 /* Canvas for shooting stars */
 #starsCanvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;}
 
@@ -40,7 +36,7 @@ body:has(a:hover) .cursor,body:has(button:hover) .cursor{width:18px;height:18px;
 body:has(a:hover) .cursor-ring,body:has(button:hover) .cursor-ring{width:54px;height:54px}
 @media(hover:none){.cursor,.cursor-ring{display:none}body{cursor:auto}}
 
-/* Nav - highest z-index to stay above lightbox */
+/* Nav - highest z-index to stay above everything */
 nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:center;justify-content:space-between;padding:20px 48px;background:linear-gradient(to bottom,rgba(7,7,15,.95),transparent);backdrop-filter:blur(5px);}
 .nav-logo{font-family:var(--font-d);font-size:26px;letter-spacing:.06em;color:var(--white);text-decoration:none;cursor:pointer;transition:transform .2s}
 .nav-logo:hover{transform:scale(1.05);text-shadow:0 0 8px var(--violet2);}
@@ -94,8 +90,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:c
 .view-work-btn{background:transparent;border:1px solid var(--violet2);color:var(--violet2);padding:10px 20px;font-family:var(--font-d);font-size:14px;letter-spacing:.1em;cursor:pointer;transition:all .2s;margin-top:10px;width:100%;border-radius:40px}
 .view-work-btn:hover{background:var(--violet2);color:var(--black);transform:translateY(-2px);box-shadow:0 0 12px var(--violet2);}
 
-/* Lightbox (popup) - zoom animation, below navbar */
-.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:10000;display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;transition:visibility 0.3s, opacity 0.3s;}
+/* Lightbox (popup) - zoom animation, no blur, navbar stays above */
+.lightbox{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.92);z-index:10000;display:flex;align-items:center;justify-content:center;visibility:hidden;opacity:0;transition:visibility 0.3s, opacity 0.3s;}
 .lightbox.active{visibility:visible;opacity:1;}
 .lightbox .lightbox-content{width:90%;max-width:1300px;max-height:85vh;background:var(--card);border-radius:20px;padding:20px;overflow-y:auto;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.2,0.9,0.4,1.1);}
 .lightbox.active .lightbox-content{transform:scale(1);}
@@ -125,7 +121,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:10001;display:flex;align-items:c
 .video-player-wrapper{aspect-ratio:16/9;background:black;border-radius:12px;overflow:hidden;}
 .video-player-wrapper iframe{width:100%;height:100%;border:none;}
 
-/* About, Contact, Footer unchanged (same as before) */
+/* About, Contact, Footer */
 .about{padding:100px 48px;border-top:1px solid rgba(240,238,248,.06);display:grid;grid-template-columns:1fr 370px;gap:72px;align-items:center}
 .about-title{font-family:var(--font-d);font-size:clamp(38px,5vw,66px);letter-spacing:.03em;line-height:1.02;margin-bottom:28px}
 .about-title .amber{color:var(--amber);text-shadow:0 0 6px var(--amber);}
@@ -195,7 +191,6 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<div class="main-content">
 <nav>
   <a class="nav-logo" id="logoLink">AE<span>NJO</span></a>
   <div class="nav-links">
@@ -277,6 +272,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </section>
 
+<!-- Lightbox for video gallery -->
 <div id="lightbox" class="lightbox">
   <div class="lightbox-content">
     <div class="lightbox-header">
@@ -287,6 +283,7 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </div>
 
+<!-- Full video player -->
 <div id="videoPlayerLightbox" class="video-player-lightbox">
   <div class="video-player-container">
     <div class="video-player-header">
@@ -298,13 +295,14 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   </div>
 </div>
 
+<!-- Image gallery for graphic design -->
 <div id="imageGalleryLightbox" class="video-player-lightbox" style="z-index:10000;">
   <div class="video-player-container">
     <div class="video-player-header">
       <span class="lightbox-title">Graphic Design</span>
       <button class="video-player-close" onclick="closeImageGallery()">&times;</button>
     </div>
-    <div id="imageGalleryContent" style="max-height:70vh; overflow-y:auto;"></div>
+    <div id="imageGalleryContent" style="max-height:70vh; overflow-y:auto; text-align:center;"></div>
     <div style="display:flex; justify-content:space-between; margin-top:16px;">
       <button class="prev-btn" onclick="prevImage()">Previous</button>
       <span id="imageCounter">1 / 0</span>
@@ -375,10 +373,9 @@ footer{padding:28px 48px;border-top:1px solid rgba(240,238,248,.05);display:flex
   <span>© 2026 Aenjo Creative Studio — Algeria</span>
   <span data-en="Video · Motion · Design" data-fr="Vidéo · Motion · Design">Video · Motion · Design</span>
 </footer>
-</div>
 
 <script>
-// ========== VIDEO DATA ==========
+// Video data
 const videoCategories = {
   videoEditing: {
     title: "Video Editing",
@@ -401,7 +398,6 @@ const videoCategories = {
   }
 };
 
-// Lightbox controls
 function openLightbox(category) {
   const data = videoCategories[category];
   if (!data || data.videos.length === 0) {
@@ -449,17 +445,13 @@ function openLightbox(category) {
     fragment.appendChild(card);
   });
   grid.appendChild(fragment);
-  // Show lightbox with zoom animation
   const lightbox = document.getElementById('lightbox');
   lightbox.classList.add('active');
-  document.body.classList.add('lightbox-open');
 }
 
 function closeLightbox() {
   const lightbox = document.getElementById('lightbox');
   lightbox.classList.remove('active');
-  document.body.classList.remove('lightbox-open');
-  // Clear grid to free memory
   document.getElementById('lightboxGrid').innerHTML = '';
 }
 
@@ -474,7 +466,7 @@ function closeVideoPlayer() {
   document.getElementById('videoPlayerIframe').src = '';
 }
 
-// Graphic design gallery (unchanged logic)
+// Graphic design gallery
 let designImages = [];
 let currentImageIndex = 0;
 
@@ -555,7 +547,7 @@ function nextImage() {
   }
 }
 
-// ========== CANVAS SHOOTING STARS (realistic, colorful, random) ==========
+// ========== REALISTIC SHOOTING STARS (white, slow, fade) ==========
 const canvas = document.getElementById('starsCanvas');
 const ctx = canvas.getContext('2d');
 let width, height;
@@ -571,7 +563,7 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Background static stars (tiny dots)
+// Static background stars
 const STATIC_STARS_COUNT = 200;
 for (let i = 0; i < STATIC_STARS_COUNT; i++) {
   stars.push({
@@ -584,17 +576,16 @@ for (let i = 0; i < STATIC_STARS_COUNT; i++) {
 
 function createShootingStar() {
   const angle = Math.random() * Math.PI * 2; // random direction
-  const speed = Math.random() * 8 + 6;
-  const length = Math.random() * 80 + 40;
+  const speed = Math.random() * 3 + 2; // slower: 2-5
+  const length = Math.random() * 60 + 40;
   const x = Math.random() * width;
   const y = Math.random() * height;
-  const color = `hsl(${Math.random() * 60 + 280}, 100%, 70%)`; // violet to blue to white
   shootingStars.push({
     x, y, angle, speed, length,
     alpha: 0.9,
-    color: color,
+    color: 'white',
     life: 1.0,
-    decay: 0.02 + Math.random() * 0.03
+    decay: 0.01 + Math.random() * 0.02 // slower fade
   });
 }
 
@@ -606,8 +597,8 @@ function drawShootingStars() {
     s.x += dx;
     s.y += dy;
     s.life -= s.decay;
-    s.alpha = s.life * 0.9;
-    if (s.life <= 0 || s.x < -200 || s.x > width+200 || s.y < -200 || s.y > height+200) {
+    s.alpha = s.life * 0.8;
+    if (s.life <= 0 || s.x < -300 || s.x > width+300 || s.y < -300 || s.y > height+300) {
       shootingStars.splice(i,1);
       continue;
     }
@@ -616,15 +607,15 @@ function drawShootingStars() {
     const tailX = s.x - Math.cos(s.angle) * s.length;
     const tailY = s.y - Math.sin(s.angle) * s.length;
     ctx.lineTo(tailX, tailY);
-    ctx.strokeStyle = s.color;
-    ctx.shadowBlur = 12;
-    ctx.shadowColor = s.color;
-    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = `rgba(255,255,255,${s.alpha})`;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = 'white';
+    ctx.lineWidth = 2;
     ctx.stroke();
-    // Add a glowing head
+    // Head
     ctx.beginPath();
     ctx.arc(s.x, s.y, 2, 0, Math.PI*2);
-    ctx.fillStyle = s.color;
+    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
     ctx.fill();
   }
   ctx.shadowBlur = 0;
@@ -647,8 +638,8 @@ function animateStars() {
 }
 animateStars();
 setInterval(() => {
-  if (Math.random() < 0.7) createShootingStar(); // frequent shooting stars
-}, 1500);
+  if (Math.random() < 0.5) createShootingStar(); // frequent but not overwhelming
+}, 2000);
 
 // ========== CURSOR, SCROLL, NAV CLOSE LIGHTBOX ==========
 const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
@@ -663,7 +654,6 @@ document.getElementById('logoLink').addEventListener('click', () => {
   closeLightbox();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-// Close lightbox when clicking nav links
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
     closeLightbox();
